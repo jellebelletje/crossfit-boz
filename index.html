@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrossFit Bergen op Zoom — Community First Fitness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-0: #0A0A0A; --bg-1: #141414; --bg-2: #1C1C1C;
+  --line: #262626; --line-bright: #3A3A3A;
+  --text: #FAFAFA; --text-dim: #8A8A8A; --text-low: #5A5A5A;
+  --yellow: #F5D300; --yellow-hot: #FFE500; --red-signal: #E63946;
+  --hex-stroke: rgba(255, 255, 255, 0.07);
+  --font-display: 'Big Shoulders Display', sans-serif;
+  --font-body: 'Figtree', sans-serif;
+  --font-signal: 'Archivo Black', sans-serif;
+  --max: 1480px;
+  --gutter: clamp(1.25rem, 3vw, 3rem);
+  --hexagon: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg-0); color: var(--text); font-family: var(--font-body); line-height: 1.55; min-height: 100vh; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+button { font-family: inherit; cursor: pointer; border: 0; background: 0; color: inherit; }
+a { color: inherit; text-decoration: none; }
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1000;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+.shell { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+.eyebrow { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.72rem; color: var(--text-dim); }
+
+/* NAV */
+.nav { position: relative; z-index: 100; background: rgba(10,10,10,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); overflow: visible; }
+.nav-inner { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 1.35rem var(--gutter); max-width: var(--max); margin: 0 auto; gap: 2rem; }
+.brand { display: flex; align-items: center; gap: 0.85rem; padding-left: clamp(120px, 11.13vw, 215px); } /* reserve room for giant hex logo */
+.brand-text { display: flex; flex-direction: column; gap: 0.2rem; }
+.brand-name { font-family: var(--font-signal); font-size: 0.9rem; letter-spacing: 0.04em; line-height: 1; }
+.brand-tag { font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.16em; color: var(--yellow); line-height: 1; }
+
+/* GIANT HEX LOGO — lives inside the sticky nav so it travels with it while the hero scrolls underneath. Overflows nav bottom into hero to visually cross the header border. */
+.hero-logo-mark { position: absolute; left: var(--gutter); top: 0; width: clamp(104px, 9.5vw, 150px); height: clamp(120px, 10.96vw, 173px); z-index: 200; pointer-events: auto; display: block; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.55)); }
+.hero-logo-mark img { width: 100%; height: 100%; display: block; object-fit: contain; }
+@media (max-width: 900px) { .hero-logo-mark { min-width: 90px; min-height: 104px; } .brand { padding-left: 100px; } }
+.nav-links { display: flex; gap: 1.75rem; font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
+.nav-links a { transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--yellow); }
+.nav-cta { background: var(--yellow); color: var(--bg-0); padding: 0.7rem 1.1rem; font-family: var(--font-signal); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.2s; }
+.nav-cta:hover { background: var(--yellow-hot); }
+@media (max-width: 900px) { .nav-links { display: none; } }
+
+/* HERO */
+.hero { position: relative; overflow: hidden; min-height: 100vh; background: var(--bg-0); }
+.hero-photo { position: absolute; inset: 0; z-index: 0; animation: slowPan 20s ease-in-out infinite alternate; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.15) contrast(1.08) brightness(0.88); }
+.hero-photo.pent-fallback { background: linear-gradient(135deg, var(--bg-1), var(--bg-2)), repeating-linear-gradient(45deg, var(--bg-1) 0 40px, var(--bg-2) 40px 80px); display: flex; align-items: center; justify-content: center; }
+.hero-photo.pent-fallback::after { content: "HERO FOOTAGE VOLGT"; color: var(--yellow); font-family: var(--font-signal); font-size: 0.8rem; letter-spacing: 0.2em; }
+@keyframes slowPan { 0% { transform: scale(1.02) translateX(0); } 100% { transform: scale(1.05) translateX(-1%); } }
+
+.hex-wall { position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: 2; pointer-events: none; }
+.hex-wall .wall-svg { width: 100%; height: 100%; display: block; }
+
+.hero-shell { position: relative; z-index: 4; max-width: var(--max); margin: 0 auto; padding: 5rem var(--gutter) 3rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.hero-content { max-width: 640px; animation: fadeUp 1s 0.3s backwards ease-out; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem; }
+.hero-eyebrow .tick { width: 40px; height: 2px; background: var(--yellow); }
+.hero-eyebrow span { font-family: var(--font-signal); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--yellow); }
+.hero-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 9.5vw, 9rem); line-height: 0.85; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1.75rem; }
+.hero-title .line-1 { display: block; color: var(--text); }
+.hero-title .line-2 { display: block; color: var(--yellow); margin-top: -0.02em; }
+.hero-title .dot { color: var(--yellow); }
+.hero-sub { max-width: 500px; font-size: 1.1rem; color: var(--text); line-height: 1.55; margin-bottom: 2.25rem; }
+.hero-sub strong { color: var(--yellow); font-weight: 700; display: block; margin-bottom: 0.4rem; font-family: var(--font-signal); font-size: 0.75rem; letter-spacing: 0.14em; }
+.hero-sub span { color: var(--text-dim); font-size: 1rem; }
+.hero-cta-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn-primary { background: var(--yellow); color: var(--bg-0); padding: 1rem 1.6rem; font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; transition: transform 0.2s, background 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-primary:hover { background: var(--yellow-hot); transform: translateY(-2px); }
+.btn-ghost { border: 1px solid var(--line-bright); color: var(--text); padding: 0.95rem 1.5rem; font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+.hero-info-strip { display: grid; grid-template-columns: repeat(4, max-content); background: var(--yellow); color: var(--bg-0); width: fit-content; }
+.hero-info-strip > div { padding: 0.85rem 1.2rem; border-right: 2px solid var(--bg-0); }
+.hero-info-strip > div:last-child { border-right: 0; }
+.hero-info-strip .k { font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.15em; opacity: 0.75; margin-bottom: 0.25rem; }
+.hero-info-strip .v { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; line-height: 1; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SECTION */
+.section { padding: 6rem 0; position: relative; }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3.5rem; border-top: 1px solid var(--line); padding-top: 2rem; }
+.section-head h2 { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.01em; line-height: 0.9; text-transform: uppercase; }
+.section-head h2 .yel { color: var(--yellow); }
+.section-head .number { font-family: var(--font-signal); font-size: 0.78rem; color: var(--yellow); letter-spacing: 0.2em; white-space: nowrap; }
+.section-head .lede { color: var(--text-dim); max-width: 480px; font-size: 0.95rem; line-height: 1.55; }
+
+/* PLACEHOLDER TILES (square photo slots) */
+.ph { position: relative; background: var(--bg-2); overflow: hidden; }
+.ph::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, var(--bg-1) 0 14px, var(--bg-2) 14px 28px); }
+.ph::after { content: attr(data-label); position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--text-low); font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.2em; text-align: center; padding: 1rem; }
+
+/* PROGRAMMES */
+.prog-wrap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem; }
+.prog-card { position: relative; overflow: hidden; background: var(--bg-2); transition: transform 0.4s; aspect-ratio: 4/5; }
+.prog-card.anchor { grid-column: span 6; grid-row: span 2; aspect-ratio: auto; min-height: 560px; }
+.prog-card.sm { grid-column: span 3; }
+.prog-card:hover { transform: translateY(-4px); }
+.prog-card .prog-img { position: absolute; inset: 0; }
+.prog-card .prog-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.15) contrast(1.1); transition: transform 0.6s; }
+.prog-card:hover .prog-img img { transform: scale(1.04); }
+.prog-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 25%, rgba(10,10,10,0.97) 95%); pointer-events: none; }
+.prog-card .content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; z-index: 2; }
+.prog-card.anchor .content { padding: 2.25rem; }
+.prog-card .prog-tag { display: inline-block; background: var(--yellow); color: var(--bg-0); font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.15em; padding: 0.3rem 0.55rem; margin-bottom: 1rem; }
+.prog-card .prog-tag.new { background: var(--text); }
+.prog-card h5 { font-family: var(--font-display); font-size: 2rem; font-weight: 900; text-transform: uppercase; line-height: 0.9; margin-bottom: 0.5rem; }
+.prog-card.anchor h5 { font-size: clamp(3rem, 5.5vw, 4.8rem); }
+.prog-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.45; max-width: 320px; }
+.prog-card.anchor p { font-size: 1rem; max-width: 460px; }
+.prog-card .meta { display: flex; gap: 1rem; margin-top: 0.85rem; font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.82; }
+.prog-card .meta span::before { content: "— "; color: var(--yellow); }
+.prog-card .more { display: inline-flex; margin-top: 1rem; font-family: var(--font-signal); font-size: 0.65rem; letter-spacing: 0.14em; color: var(--yellow); text-transform: uppercase; }
+.prog-card .sq-badge { position: absolute; top: 1rem; right: 1rem; z-index: 3; padding: 0.4rem 0.6rem; background: rgba(10,10,10,0.85); border: 1px solid var(--hex-stroke); font-family: var(--font-signal); font-size: 0.58rem; color: var(--text); letter-spacing: 0.1em; }
+@media (max-width: 960px) { .prog-card.anchor, .prog-card.sm { grid-column: span 12; min-height: 420px; } }
+
+/* SOCIAL PROOF BLOCK */
+.sp-grid { display: grid; grid-template-columns: 1.2fr 1fr 0.9fr; gap: 0; border: 1px solid var(--line); }
+.sp-col { padding: 2.5rem; border-right: 1px solid var(--line); }
+.sp-col:last-child { border-right: 0; }
+.sp-col h4 { font-family: var(--font-signal); font-size: 0.65rem; letter-spacing: 0.18em; color: var(--yellow); margin-bottom: 1.5rem; }
+.sp-photo { height: 320px; margin-bottom: 1.25rem; }
+.sp-caption { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+.sp-quote { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.sp-quote:last-child { margin-bottom: 0; border-bottom: 0; padding-bottom: 0; }
+.sp-quote blockquote { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1.1; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: -0.005em; }
+.sp-quote blockquote::before { content: "\201C"; color: var(--yellow); font-size: 1.8em; line-height: 0; vertical-align: -0.35em; margin-right: 0.1em; }
+.sp-quote .attr strong { font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.12em; display: block; }
+.sp-quote .attr span { font-size: 0.78rem; color: var(--text-dim); }
+.sp-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+.sp-stat:last-child { border-bottom: 0; }
+.sp-stat .v { font-family: var(--font-display); font-weight: 900; font-size: 3.25rem; line-height: 1; color: var(--text); }
+.sp-stat .v .yel { color: var(--yellow); }
+.sp-stat .k { font-family: var(--font-signal); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 0.5rem; }
+@media (max-width: 960px) { .sp-grid { grid-template-columns: 1fr; } .sp-col { border-right: 0; border-bottom: 1px solid var(--line); } .sp-col:last-child { border-bottom: 0; } }
+
+/* FAQ */
+.faq-list { max-width: 900px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--line); padding: 1.5rem 0; cursor: pointer; }
+.faq-item:first-child { border-top: 1px solid var(--line); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.1; }
+.faq-q .plus { width: 22px; height: 22px; position: relative; flex-shrink: 0; transition: transform 0.3s; }
+.faq-q .plus::before, .faq-q .plus::after { content: ""; position: absolute; background: var(--yellow); }
+.faq-q .plus::before { left: 0; right: 0; top: 10px; height: 2px; }
+.faq-q .plus::after { top: 0; bottom: 0; left: 10px; width: 2px; transition: transform 0.3s; }
+.faq-item.open .faq-q .plus::after { transform: rotate(90deg); }
+.faq-a { padding-top: 1rem; color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; max-width: 680px; display: none; }
+.faq-item.open .faq-a { display: block; }
+
+/* SECOND CTA */
+.cta-band { background: var(--bg-1); border: 1px solid var(--line); padding: clamp(2rem, 5vw, 4rem); position: relative; overflow: hidden; }
+.cta-band::before { content: ""; position: absolute; top: -60px; right: -60px; width: 240px; height: 277px; clip-path: var(--hexagon); background: rgba(245,211,0,0.06); }
+.cta-band::after { content: ""; position: absolute; bottom: -90px; left: -40px; width: 180px; height: 208px; clip-path: var(--hexagon); border: 1px solid rgba(245,211,0,0.15); }
+.cta-avatars { display: flex; margin-bottom: 1.5rem; position: relative; z-index: 2; }
+.cta-avatars .av { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-2); border: 2px solid var(--bg-1); margin-left: -10px; background-size: cover; background-position: center; filter: grayscale(0.4) contrast(1.1); display: flex; align-items: center; justify-content: center; font-family: var(--font-signal); font-size: 0.7rem; color: var(--yellow); }
+.cta-avatars .av:first-child { margin-left: 0; }
+.cta-band h3 { font-family: var(--font-display); font-weight: 900; font-size: clamp(2rem, 4.5vw, 3.6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; position: relative; z-index: 2; }
+.cta-band h3 .yel { color: var(--yellow); }
+.cta-band p { color: var(--text-dim); max-width: 540px; margin-bottom: 2rem; font-size: 1rem; position: relative; z-index: 2; }
+.cta-band .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; position: relative; z-index: 2; }
+
+/* FOUNDER */
+.founder { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; padding: 2rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.founder-portrait { width: 260px; height: 320px; }
+.founder-meta { font-family: var(--font-signal); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--yellow); margin-top: 1.25rem; }
+.founder-meta .name { font-family: var(--font-display); font-weight: 900; font-size: 2rem; text-transform: uppercase; color: var(--text); line-height: 1; letter-spacing: 0; margin-bottom: 0.3rem; }
+.founder-body { font-size: 1rem; line-height: 1.7; color: var(--text); }
+.founder-body .placeholder-tag { display: inline-block; background: rgba(230,57,70,0.08); border: 1px dashed var(--red-signal); color: var(--red-signal); padding: 0.4rem 0.7rem; font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; margin-bottom: 1.5rem; }
+.founder-body .beat { display: block; margin-top: 1.5rem; }
+.founder-body .beat-label { font-family: var(--font-signal); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--yellow); display: block; margin-bottom: 0.4rem; }
+.founder-body p { margin-bottom: 0.5rem; }
+.founder-body .sig { margin-top: 2rem; font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; }
+.founder-body .sig .yel { color: var(--yellow); }
+@media (max-width: 800px) { .founder { grid-template-columns: 1fr; } .founder-portrait { width: 100%; height: 360px; } }
+
+/* FOOTER */
+.foot { padding: 4rem 0 2rem; border-top: 1px solid var(--line); margin-top: 2rem; }
+.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.foot h6 { font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.15em; color: var(--yellow); margin-bottom: 1rem; }
+.foot p, .foot li { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0.55rem; line-height: 1.5; }
+.foot ul { list-style: none; }
+.foot li::before { content: "\2192 "; color: var(--yellow); }
+.foot-brand-name { font-family: var(--font-signal); font-size: 0.9rem; letter-spacing: 0.04em; color: var(--text); line-height: 1.2; margin-bottom: 0.3rem; }
+.foot-brand-tag { font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.16em; color: var(--yellow); margin-bottom: 1.25rem; display: block; }
+.foot-note { font-size: 0.75rem; color: var(--text-low); padding-top: 1.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+@media (max-width: 800px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) {
+  .section { padding: 4rem 0; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .hero-title { font-size: clamp(3.5rem, 16vw, 6rem); }
+  .hero-info-strip { grid-template-columns: repeat(2, max-content); }
+  .foot-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <!-- Giant hex logo lives in the sticky nav so it travels with the header on scroll; overflows nav bottom into hero -->
+    <a class="hero-logo-mark" href="/" aria-label="CrossFit Bergen op Zoom">
+      <img src="assets/logo.png" alt="CFBoZ">
+    </a>
+    <a class="brand" href="/">
+      <div class="brand-text">
+        <span class="brand-name">CROSSFIT BERGEN OP ZOOM</span>
+        <span class="brand-tag">Community First Fitness</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#programmas" class="active">Programma's</a>
+      <a href="#rooster">Rooster</a>
+      <a href="#tarieven">Tarieven</a>
+      <a href="#coaches">Coaches</a>
+      <a href="#community">Community</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Gratis proefweek →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-photo">
+    <img src="assets/hero.jpg" alt="CrossFit training — vrouw doet wall ball shot, community op de achtergrond"
+         onerror="this.parentNode.classList.add('pent-fallback'); this.remove();">
+  </div>
+
+  <div class="hex-wall">
+    <svg class="wall-svg" viewBox="0 0 1400 1000" preserveAspectRatio="xMinYMin slice" xmlns="http://www.w3.org/2000/svg">
+    <g>
+<polygon points="-51.96,-150.00 0.00,-120.00 0.00,-60.00 -51.96,-30.00 -103.92,-60.00 -103.92,-120.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,-150.00 103.92,-120.00 103.92,-60.00 51.96,-30.00 0.00,-60.00 0.00,-120.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,-150.00 207.85,-120.00 207.85,-60.00 155.88,-30.00 103.92,-60.00 103.92,-120.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,-150.00 311.77,-120.00 311.77,-60.00 259.81,-30.00 207.85,-60.00 207.85,-120.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,-150.00 415.69,-120.00 415.69,-60.00 363.73,-30.00 311.77,-60.00 311.77,-120.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,-150.00 519.62,-120.00 519.62,-60.00 467.65,-30.00 415.69,-60.00 415.69,-120.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,-150.00 623.54,-120.00 623.54,-60.00 571.58,-30.00 519.62,-60.00 519.62,-120.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,-150.00 727.46,-120.00 727.46,-60.00 675.50,-30.00 623.54,-60.00 623.54,-120.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,-150.00 831.38,-120.00 831.38,-60.00 779.42,-30.00 727.46,-60.00 727.46,-120.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="883.35,-150.00 935.31,-120.00 935.31,-60.00 883.35,-30.00 831.38,-60.00 831.38,-120.00" fill="#0A0A0A" fill-opacity="0.055" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,-60.00 -51.96,-30.00 -51.96,30.00 -103.92,60.00 -155.88,30.00 -155.88,-30.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,-60.00 51.96,-30.00 51.96,30.00 0.00,60.00 -51.96,30.00 -51.96,-30.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,-60.00 155.88,-30.00 155.88,30.00 103.92,60.00 51.96,30.00 51.96,-30.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,-60.00 259.81,-30.00 259.81,30.00 207.85,60.00 155.88,30.00 155.88,-30.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,-60.00 363.73,-30.00 363.73,30.00 311.77,60.00 259.81,30.00 259.81,-30.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,-60.00 467.65,-30.00 467.65,30.00 415.69,60.00 363.73,30.00 363.73,-30.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,-60.00 571.58,-30.00 571.58,30.00 519.62,60.00 467.65,30.00 467.65,-30.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,-60.00 675.50,-30.00 675.50,30.00 623.54,60.00 571.58,30.00 571.58,-30.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,-60.00 779.42,-30.00 779.42,30.00 727.46,60.00 675.50,30.00 675.50,-30.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,-60.00 883.35,-30.00 883.35,30.00 831.38,60.00 779.42,30.00 779.42,-30.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,30.00 0.00,60.00 0.00,120.00 -51.96,150.00 -103.92,120.00 -103.92,60.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,30.00 103.92,60.00 103.92,120.00 51.96,150.00 0.00,120.00 0.00,60.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,30.00 207.85,60.00 207.85,120.00 155.88,150.00 103.92,120.00 103.92,60.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,30.00 311.77,60.00 311.77,120.00 259.81,150.00 207.85,120.00 207.85,60.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,30.00 415.69,60.00 415.69,120.00 363.73,150.00 311.77,120.00 311.77,60.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,30.00 519.62,60.00 519.62,120.00 467.65,150.00 415.69,120.00 415.69,60.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,30.00 623.54,60.00 623.54,120.00 571.58,150.00 519.62,120.00 519.62,60.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,30.00 727.46,60.00 727.46,120.00 675.50,150.00 623.54,120.00 623.54,60.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,30.00 831.38,60.00 831.38,120.00 779.42,150.00 727.46,120.00 727.46,60.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="883.35,30.00 935.31,60.00 935.31,120.00 883.35,150.00 831.38,120.00 831.38,60.00" fill="#0A0A0A" fill-opacity="0.055" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,120.00 -51.96,150.00 -51.96,210.00 -103.92,240.00 -155.88,210.00 -155.88,150.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,120.00 51.96,150.00 51.96,210.00 0.00,240.00 -51.96,210.00 -51.96,150.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,120.00 155.88,150.00 155.88,210.00 103.92,240.00 51.96,210.00 51.96,150.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,120.00 259.81,150.00 259.81,210.00 207.85,240.00 155.88,210.00 155.88,150.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,120.00 363.73,150.00 363.73,210.00 311.77,240.00 259.81,210.00 259.81,150.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,120.00 467.65,150.00 467.65,210.00 415.69,240.00 363.73,210.00 363.73,150.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,120.00 571.58,150.00 571.58,210.00 519.62,240.00 467.65,210.00 467.65,150.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,120.00 675.50,150.00 675.50,210.00 623.54,240.00 571.58,210.00 571.58,150.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,120.00 779.42,150.00 779.42,210.00 727.46,240.00 675.50,210.00 675.50,150.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,120.00 883.35,150.00 883.35,210.00 831.38,240.00 779.42,210.00 779.42,150.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="935.31,120.00 987.27,150.00 987.27,210.00 935.31,240.00 883.35,210.00 883.35,150.00" fill="#0A0A0A" fill-opacity="0.047" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="1039.23,120.00 1091.19,150.00 1091.19,210.00 1039.23,240.00 987.27,210.00 987.27,150.00" fill="#0A0A0A" fill-opacity="0.015" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,210.00 0.00,240.00 0.00,300.00 -51.96,330.00 -103.92,300.00 -103.92,240.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,210.00 103.92,240.00 103.92,300.00 51.96,330.00 0.00,300.00 0.00,240.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,210.00 207.85,240.00 207.85,300.00 155.88,330.00 103.92,300.00 103.92,240.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,210.00 311.77,240.00 311.77,300.00 259.81,330.00 207.85,300.00 207.85,240.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,210.00 415.69,240.00 415.69,300.00 363.73,330.00 311.77,300.00 311.77,240.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,210.00 519.62,240.00 519.62,300.00 467.65,330.00 415.69,300.00 415.69,240.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,210.00 623.54,240.00 623.54,300.00 571.58,330.00 519.62,300.00 519.62,240.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,210.00 727.46,240.00 727.46,300.00 675.50,330.00 623.54,300.00 623.54,240.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,210.00 831.38,240.00 831.38,300.00 779.42,330.00 727.46,300.00 727.46,240.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="987.27,210.00 1039.23,240.00 1039.23,300.00 987.27,330.00 935.31,300.00 935.31,240.00" fill="#0A0A0A" fill-opacity="0.032" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,300.00 -51.96,330.00 -51.96,390.00 -103.92,420.00 -155.88,390.00 -155.88,330.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,300.00 51.96,330.00 51.96,390.00 0.00,420.00 -51.96,390.00 -51.96,330.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,300.00 155.88,330.00 155.88,390.00 103.92,420.00 51.96,390.00 51.96,330.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,300.00 259.81,330.00 259.81,390.00 207.85,420.00 155.88,390.00 155.88,330.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,300.00 363.73,330.00 363.73,390.00 311.77,420.00 259.81,390.00 259.81,330.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,300.00 467.65,330.00 467.65,390.00 415.69,420.00 363.73,390.00 363.73,330.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,300.00 571.58,330.00 571.58,390.00 519.62,420.00 467.65,390.00 467.65,330.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,300.00 675.50,330.00 675.50,390.00 623.54,420.00 571.58,390.00 571.58,330.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,300.00 779.42,330.00 779.42,390.00 727.46,420.00 675.50,390.00 675.50,330.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,300.00 883.35,330.00 883.35,390.00 831.38,420.00 779.42,390.00 779.42,330.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,390.00 0.00,420.00 0.00,480.00 -51.96,510.00 -103.92,480.00 -103.92,420.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,390.00 103.92,420.00 103.92,480.00 51.96,510.00 0.00,480.00 0.00,420.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,390.00 207.85,420.00 207.85,480.00 155.88,510.00 103.92,480.00 103.92,420.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,390.00 311.77,420.00 311.77,480.00 259.81,510.00 207.85,480.00 207.85,420.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,390.00 415.69,420.00 415.69,480.00 363.73,510.00 311.77,480.00 311.77,420.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,390.00 519.62,420.00 519.62,480.00 467.65,510.00 415.69,480.00 415.69,420.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,390.00 623.54,420.00 623.54,480.00 571.58,510.00 519.62,480.00 519.62,420.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,390.00 727.46,420.00 727.46,480.00 675.50,510.00 623.54,480.00 623.54,420.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,390.00 831.38,420.00 831.38,480.00 779.42,510.00 727.46,480.00 727.46,420.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="987.27,390.00 1039.23,420.00 1039.23,480.00 987.27,510.00 935.31,480.00 935.31,420.00" fill="#0A0A0A" fill-opacity="0.028" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,480.00 -51.96,510.00 -51.96,570.00 -103.92,600.00 -155.88,570.00 -155.88,510.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,480.00 51.96,510.00 51.96,570.00 0.00,600.00 -51.96,570.00 -51.96,510.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,480.00 155.88,510.00 155.88,570.00 103.92,600.00 51.96,570.00 51.96,510.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,480.00 259.81,510.00 259.81,570.00 207.85,600.00 155.88,570.00 155.88,510.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,480.00 363.73,510.00 363.73,570.00 311.77,600.00 259.81,570.00 259.81,510.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,480.00 467.65,510.00 467.65,570.00 415.69,600.00 363.73,570.00 363.73,510.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,480.00 571.58,510.00 571.58,570.00 519.62,600.00 467.65,570.00 467.65,510.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,480.00 675.50,510.00 675.50,570.00 623.54,600.00 571.58,570.00 571.58,510.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,480.00 779.42,510.00 779.42,570.00 727.46,600.00 675.50,570.00 675.50,510.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,480.00 883.35,510.00 883.35,570.00 831.38,600.00 779.42,570.00 779.42,510.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="935.31,480.00 987.27,510.00 987.27,570.00 935.31,600.00 883.35,570.00 883.35,510.00" fill="#0A0A0A" fill-opacity="0.060" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,570.00 0.00,600.00 0.00,660.00 -51.96,690.00 -103.92,660.00 -103.92,600.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,570.00 103.92,600.00 103.92,660.00 51.96,690.00 0.00,660.00 0.00,600.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,570.00 207.85,600.00 207.85,660.00 155.88,690.00 103.92,660.00 103.92,600.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,570.00 311.77,600.00 311.77,660.00 259.81,690.00 207.85,660.00 207.85,600.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,570.00 415.69,600.00 415.69,660.00 363.73,690.00 311.77,660.00 311.77,600.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,570.00 519.62,600.00 519.62,660.00 467.65,690.00 415.69,660.00 415.69,600.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,570.00 623.54,600.00 623.54,660.00 571.58,690.00 519.62,660.00 519.62,600.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,570.00 727.46,600.00 727.46,660.00 675.50,690.00 623.54,660.00 623.54,600.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,570.00 831.38,600.00 831.38,660.00 779.42,690.00 727.46,660.00 727.46,600.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="883.35,570.00 935.31,600.00 935.31,660.00 883.35,690.00 831.38,660.00 831.38,600.00" fill="#0A0A0A" fill-opacity="0.089" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="987.27,570.00 1039.23,600.00 1039.23,660.00 987.27,690.00 935.31,660.00 935.31,600.00" fill="#0A0A0A" fill-opacity="0.034" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,660.00 -51.96,690.00 -51.96,750.00 -103.92,780.00 -155.88,750.00 -155.88,690.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,660.00 51.96,690.00 51.96,750.00 0.00,780.00 -51.96,750.00 -51.96,690.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,660.00 155.88,690.00 155.88,750.00 103.92,780.00 51.96,750.00 51.96,690.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,660.00 259.81,690.00 259.81,750.00 207.85,780.00 155.88,750.00 155.88,690.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,660.00 363.73,690.00 363.73,750.00 311.77,780.00 259.81,750.00 259.81,690.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,660.00 467.65,690.00 467.65,750.00 415.69,780.00 363.73,750.00 363.73,690.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,660.00 571.58,690.00 571.58,750.00 519.62,780.00 467.65,750.00 467.65,690.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,660.00 675.50,690.00 675.50,750.00 623.54,780.00 571.58,750.00 571.58,690.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,660.00 779.42,690.00 779.42,750.00 727.46,780.00 675.50,750.00 675.50,690.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,660.00 883.35,690.00 883.35,750.00 831.38,780.00 779.42,750.00 779.42,690.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="935.31,660.00 987.27,690.00 987.27,750.00 935.31,780.00 883.35,750.00 883.35,690.00" fill="#0A0A0A" fill-opacity="0.069" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,750.00 0.00,780.00 0.00,840.00 -51.96,870.00 -103.92,840.00 -103.92,780.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,750.00 103.92,780.00 103.92,840.00 51.96,870.00 0.00,840.00 0.00,780.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,750.00 207.85,780.00 207.85,840.00 155.88,870.00 103.92,840.00 103.92,780.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,750.00 311.77,780.00 311.77,840.00 259.81,870.00 207.85,840.00 207.85,780.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,750.00 415.69,780.00 415.69,840.00 363.73,870.00 311.77,840.00 311.77,780.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,750.00 519.62,780.00 519.62,840.00 467.65,870.00 415.69,840.00 415.69,780.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,750.00 623.54,780.00 623.54,840.00 571.58,870.00 519.62,840.00 519.62,780.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,750.00 727.46,780.00 727.46,840.00 675.50,870.00 623.54,840.00 623.54,780.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,750.00 831.38,780.00 831.38,840.00 779.42,870.00 727.46,840.00 727.46,780.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,840.00 -51.96,870.00 -51.96,930.00 -103.92,960.00 -155.88,930.00 -155.88,870.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,840.00 51.96,870.00 51.96,930.00 0.00,960.00 -51.96,930.00 -51.96,870.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,840.00 155.88,870.00 155.88,930.00 103.92,960.00 51.96,930.00 51.96,870.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,840.00 259.81,870.00 259.81,930.00 207.85,960.00 155.88,930.00 155.88,870.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,840.00 363.73,870.00 363.73,930.00 311.77,960.00 259.81,930.00 259.81,870.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,840.00 467.65,870.00 467.65,930.00 415.69,960.00 363.73,930.00 363.73,870.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,840.00 571.58,870.00 571.58,930.00 519.62,960.00 467.65,930.00 467.65,870.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,840.00 675.50,870.00 675.50,930.00 623.54,960.00 571.58,930.00 571.58,870.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,840.00 779.42,870.00 779.42,930.00 727.46,960.00 675.50,930.00 675.50,870.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,840.00 883.35,870.00 883.35,930.00 831.38,960.00 779.42,930.00 779.42,870.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-51.96,930.00 0.00,960.00 0.00,1020.00 -51.96,1050.00 -103.92,1020.00 -103.92,960.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="51.96,930.00 103.92,960.00 103.92,1020.00 51.96,1050.00 0.00,1020.00 0.00,960.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="155.88,930.00 207.85,960.00 207.85,1020.00 155.88,1050.00 103.92,1020.00 103.92,960.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="259.81,930.00 311.77,960.00 311.77,1020.00 259.81,1050.00 207.85,1020.00 207.85,960.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="363.73,930.00 415.69,960.00 415.69,1020.00 363.73,1050.00 311.77,1020.00 311.77,960.00" fill="#0A0A0A" fill-opacity="0.873" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="467.65,930.00 519.62,960.00 519.62,1020.00 467.65,1050.00 415.69,1020.00 415.69,960.00" fill="#0A0A0A" fill-opacity="0.646" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="571.58,930.00 623.54,960.00 623.54,1020.00 571.58,1050.00 519.62,1020.00 519.62,960.00" fill="#0A0A0A" fill-opacity="0.437" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="675.50,930.00 727.46,960.00 727.46,1020.00 675.50,1050.00 623.54,1020.00 623.54,960.00" fill="#0A0A0A" fill-opacity="0.250" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="779.42,930.00 831.38,960.00 831.38,1020.00 779.42,1050.00 727.46,1020.00 727.46,960.00" fill="#0A0A0A" fill-opacity="0.091" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="883.35,930.00 935.31,960.00 935.31,1020.00 883.35,1050.00 831.38,1020.00 831.38,960.00" fill="#0A0A0A" fill-opacity="0.066" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="987.27,930.00 1039.23,960.00 1039.23,1020.00 987.27,1050.00 935.31,1020.00 935.31,960.00" fill="#0A0A0A" fill-opacity="0.036" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="-103.92,1020.00 -51.96,1050.00 -51.96,1110.00 -103.92,1140.00 -155.88,1110.00 -155.88,1050.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="0.00,1020.00 51.96,1050.00 51.96,1110.00 0.00,1140.00 -51.96,1110.00 -51.96,1050.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="103.92,1020.00 155.88,1050.00 155.88,1110.00 103.92,1140.00 51.96,1110.00 51.96,1050.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="207.85,1020.00 259.81,1050.00 259.81,1110.00 207.85,1140.00 155.88,1110.00 155.88,1050.00" fill="#0A0A0A" fill-opacity="1.000" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="311.77,1020.00 363.73,1050.00 363.73,1110.00 311.77,1140.00 259.81,1110.00 259.81,1050.00" fill="#0A0A0A" fill-opacity="0.991" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="415.69,1020.00 467.65,1050.00 467.65,1110.00 415.69,1140.00 363.73,1110.00 363.73,1050.00" fill="#0A0A0A" fill-opacity="0.758" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="519.62,1020.00 571.58,1050.00 571.58,1110.00 519.62,1140.00 467.65,1110.00 467.65,1050.00" fill="#0A0A0A" fill-opacity="0.540" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="623.54,1020.00 675.50,1050.00 675.50,1110.00 623.54,1140.00 571.58,1110.00 571.58,1050.00" fill="#0A0A0A" fill-opacity="0.340" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="727.46,1020.00 779.42,1050.00 779.42,1110.00 727.46,1140.00 675.50,1110.00 675.50,1050.00" fill="#0A0A0A" fill-opacity="0.166" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+<polygon points="831.38,1020.00 883.35,1050.00 883.35,1110.00 831.38,1140.00 779.42,1110.00 779.42,1050.00" fill="#0A0A0A" fill-opacity="0.029" stroke="rgba(255,255,255,0.07)" stroke-width="1" vector-effect="non-scaling-stroke"></polygon>
+</g>
+    </svg>
+  </div>
+
+  <div class="hero-shell">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="tick"></span>
+        <span>COMMUNITY FIRST FITNESS · SINDS 2017</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line-1">Samen ga je</span>
+        <span class="line-2">Harder<span class="dot">.</span></span>
+      </h1>
+      <p class="hero-sub">
+        <strong>CrossFit · HYROX · Powermama · ZilverFitness · Circuit · Kids · Private</strong>
+        <span>Dagelijks wisselende workouts onder begeleiding van coaches die je naam kennen, tussen mensen die je elke week terugziet. Jouw fitness voorop; de community eromheen.</span>
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Boek je gratis proefweek →</a>
+        <a class="btn-ghost" href="#rooster">Bekijk rooster</a>
+      </div>
+      <div class="hero-info-strip">
+        <div><div class="k">LEDEN</div><div class="v">350+</div></div>
+        <div><div class="k">COACHES</div><div class="v">9</div></div>
+        <div><div class="k">PROGRAMMA'S</div><div class="v">7</div></div>
+        <div><div class="k">SINDS</div><div class="v">2017</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRAMMES -->
+<section class="section" id="programmas">
+  <div class="shell">
+    <div class="section-head">
+      <h2>ZEVEN <span class="yel">PROGRAMMA'S.</span><br>EÉN COMMUNITY.</h2>
+      <span class="number">01 / WHAT WE TRAIN</span>
+    </div>
+    <div class="prog-wrap">
+      <article class="prog-card anchor">
+        <div class="sq-badge">ANKER · 7D/WK</div>
+        <div class="prog-img"><img src="assets/crossfit.jpg" alt="CrossFit groepstraining — leden doen kracht-WOD" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">ANKER-PROGRAMMA</span>
+          <h5>CrossFit</h5>
+          <p>Constant variërende, functionele bewegingen onder hoge intensiteit. Kracht, conditie, techniek, community — elke dag een andere WOD, elke dag dezelfde mensen om je heen.</p>
+          <div class="meta"><span>60 MIN</span><span>ALLE NIVEAUS</span><span>DAGELIJKS</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="sq-badge new">NIEUW</div>
+        <div class="prog-img"><img src="assets/hyrox.jpg" alt="HYROX — lid pusht sled over gymvloer" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag new">NIEUW</span>
+          <h5>HYROX</h5>
+          <p>Compromisloze mix van lopen en functionele stations.</p>
+          <div class="meta"><span>75 MIN</span><span>GEVORDERD</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="prog-img"><img src="assets/powermama.jpg" alt="Powermama — zwangere cursist doet kettlebell goblet squat" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">POWERMAMA</span>
+          <h5>Powermama</h5>
+          <p>Zwanger Fit · Mama Fit · Next Level.</p>
+          <div class="meta"><span>60 MIN</span><span>3 TRACKS</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="prog-img"><img src="assets/zilverfitness.jpg" alt="ZilverFitness — man doet kettlebell deadlift, trainingspartner op achtergrond met weerstandsband" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">ZILVERFITNESS</span>
+          <h5>ZilverFitness</h5>
+          <p>Kracht, balans en mobiliteit — voor 60+.</p>
+          <div class="meta"><span>60 MIN</span><span>60+</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="prog-img"><img src="assets/circuit.jpg" alt="Circuittraining — box jumps, push-ups en roeien op drie stations" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">CIRCUIT</span>
+          <h5>Circuittraining</h5>
+          <p>Korte, intense circuits. Snel zweet, weinig ballast.</p>
+          <div class="meta"><span>45 MIN</span><span>BEGINNER+</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="prog-img"><img src="assets/kids.jpg" alt="Kids — twee kinderen doen double-unders met springtouw, coach op achtergrond" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">KIDS</span>
+          <h5>Kids</h5>
+          <p>Bewegen, techniek, spel. Voor 7 t/m 14 jaar.</p>
+          <div class="meta"><span>45 MIN</span><span>7–14 JR</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+      <article class="prog-card sm">
+        <div class="prog-img"><img src="assets/private.jpg" alt="Private coaching — coach in gesprek met lid na zware set" loading="lazy"></div>
+        <div class="content">
+          <span class="prog-tag">PRIVATE</span>
+          <h5>Private Coaching</h5>
+          <p>1-op-1 of duo. Voor wie specifiek wil werken.</p>
+          <div class="meta"><span>60 MIN</span><span>OP AFSPRAAK</span></div>
+          <a class="more" href="#">Meer info →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF BLOCK -->
+<section class="section" id="community">
+  <div class="shell">
+    <div class="section-head">
+      <h2>LEDEN. <span class="yel">STEMMEN.</span> GETALLEN.</h2>
+      <span class="number">02 / WHY IT WORKS</span>
+    </div>
+    <div class="sp-grid">
+      <div class="sp-col">
+        <h4>DE GROEP · APR 2026</h4>
+        <div class="sp-photo"><img src="assets/community.jpg" alt="Groepsfoto — leden na een WOD in de box, CrossFit Bergen op Zoom logo op achtergrond" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.1) contrast(1.05);"></div>
+        <p class="sp-caption">Zaterdagochtend, 09:00. Een doorsnee WOD — niemand kent de hele groep, iedereen kent iemand.</p>
+      </div>
+      <div class="sp-col">
+        <h4>TWEE STEMMEN</h4>
+        <div class="sp-quote">
+          <blockquote>Ik kwam binnen met lage rugklachten en zonder vertrouwen. Acht maanden later til ik mijn eigen lichaamsgewicht boven mijn hoofd.</blockquote>
+          <div class="attr">
+            <strong>SANNE — LID SINDS 2024</strong>
+            <span>Powermama Next Level + CrossFit</span>
+          </div>
+        </div>
+        <div class="sp-quote">
+          <blockquote>Zestig jaar, twee nieuwe knieën, en ik train drie keer per week. De coach schaalt alles, niemand kijkt scheef.</blockquote>
+          <div class="attr">
+            <strong>HENK — LID SINDS 2022</strong>
+            <span>ZilverFitness</span>
+          </div>
+        </div>
+      </div>
+      <div class="sp-col">
+        <h4>HARDE CIJFERS</h4>
+        <div class="sp-stat">
+          <div class="v"><span class="yel">350</span>+</div>
+          <div class="k">ACTIEVE LEDEN</div>
+        </div>
+        <div class="sp-stat">
+          <div class="v">84%</div>
+          <div class="k">RETENTIE NA 12 MND</div>
+        </div>
+        <div class="sp-stat">
+          <div class="v">9 <span class="yel">JAAR</span></div>
+          <div class="k">OPEN SINDS 2017</div>
+        </div>
+        <div class="sp-stat">
+          <div class="v">3,2×</div>
+          <div class="k">GEMIDDELD / WEEK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="shell">
+    <div class="section-head">
+      <h2>VRAGEN. <span class="yel">EERLIJK.</span></h2>
+      <span class="number">03 / WHAT HOLDS YOU BACK</span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q">Ben ik fit genoeg om te beginnen?<span class="plus"></span></div>
+        <div class="faq-a">Ja. Elke oefening is schaalbaar. De coach past gewicht, herhalingen en bewegingen aan op waar jij nu staat — niet op waar iemand anders staat. De meeste nieuwe leden beginnen met nul CrossFit-ervaring.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Moet ik zwaar kunnen tillen?<span class="plus"></span></div>
+        <div class="faq-a">Nee. Je leert techniek met een stok, dan een lege stang, daarna pas gewicht. Kracht komt vanzelf — techniek is de voorwaarde.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Kan ik meedoen als 60+?<span class="plus"></span></div>
+        <div class="faq-a">Ja, en we hebben een eigen programma: ZilverFitness. Kracht, balans en mobiliteit, op tempo. Veel leden stappen later door naar CrossFit.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ik ben net bevallen — kan ik al trainen?<span class="plus"></span></div>
+        <div class="faq-a">Onze Powermama-sporen zijn hierop gebouwd. Zwanger Fit tijdens, Mama Fit vanaf zes weken postpartum, Next Level als je verder wilt. Charis coacht met een postpartum-achtergrond.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Ik heb een blessure — gaat dat?<span class="plus"></span></div>
+        <div class="faq-a">Meld het bij inschrijving. We schalen of vervangen bewegingen per les. Bij chronische klachten denken we mee met je fysio.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Wat als ik op vakantie ben?<span class="plus"></span></div>
+        <div class="faq-a">Credits vervallen niet per week. Je abonnement loopt door, maar ongebruikte credits schuiven mee naar de volgende maand binnen je kwartaal.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Moet ik een abonnement nemen of kan ik losse lessen boeken?<span class="plus"></span></div>
+        <div class="faq-a">Beide. Abonnementen IRON / BRONZE / SILVER / GOLD lopen per kwartaal. Losse credits: €70 voor 5, €125 voor 10. Eerste proefweek is altijd gratis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECOND CTA -->
+<section class="section">
+  <div class="shell">
+    <div class="cta-band">
+      <div class="cta-avatars">
+        <div class="av" style="background:#1C1C1C;">P</div>
+        <div class="av" style="background:#1C1C1C;">C</div>
+        <div class="av" style="background:#1C1C1C;">R</div>
+        <div class="av" style="background:#1C1C1C;">S</div>
+        <div class="av" style="background:var(--yellow); color: var(--bg-0);">+</div>
+      </div>
+      <h3>Join <span class="yel">350+ leden</span><br>die wekelijks samen trainen.</h3>
+      <p>Een week gratis. Vijf lessen, alle programma's, geen verplichting. Je loopt binnen, je traint, je kijkt hoe het voelt — en dan beslis je.</p>
+      <div class="cta-row">
+        <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Boek je gratis proefweek →</a>
+        <a class="btn-ghost" href="#contact">Eerst langskomen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER'S NOTE -->
+<section class="section" id="founder">
+  <div class="shell">
+    <div class="section-head">
+      <h2>VAN <span class="yel">PETER.</span></h2>
+      <span class="number">04 / FOUNDER'S NOTE</span>
+    </div>
+    <div class="founder">
+      <div>
+        <div class="founder-portrait"><img src="assets/peter.jpg" alt="Peter — eigenaar en head coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.1) contrast(1.05);"></div>
+        <div class="founder-meta">
+          <div class="name">Peter</div>
+          EIGENAAR · HEAD COACH · SINDS 2017
+        </div>
+      </div>
+      <div class="founder-body">
+        <span class="placeholder-tag">✕ Placeholder — Peter schrijft de definitieve versie</span>
+
+        <span class="beat">
+          <span class="beat-label">01 · JOUW SCHOENEN</span>
+          <p>Je weet al een tijd dat je moet beginnen. Je opent de site van een sportschool, je scrolt door abonnementen, je sluit hem weer. Je doet een week lang hardlopen en dan stopt het. Volgende maand weer. Ik ken dat, want de helft van onze leden loopt bij de eerste keer binnen met hetzelfde verhaal.</p>
+        </span>
+
+        <span class="beat">
+          <span class="beat-label">02 · HET PROBLEEM</span>
+          <p>Een sportschool is anoniem — drie honderd leden die niemand kent. Een YouTube-programma is generiek — het weet niet dat jij lage rugklachten hebt. Een personal trainer is duur en eenzaam. Wat ontbreekt is het tussenwerk: een plek waar een coach je naam kent, waar andere mensen zien of je er bent, waar het programma voor jou wordt geschaald.</p>
+        </span>
+
+        <span class="beat">
+          <span class="beat-label">03 · WAAROM CFBOZ ZO</span>
+          <p>Ik heb deze box in 2017 geopend met één regel: community first. Dat betekent concreet — elke coach kent elk lid bij naam. Elke WOD wordt geschaald tot het niveau in de zaal. Wie drie weken wegblijft krijgt een berichtje. Geen stickers, geen gimmicks. Dat is geen marketing, het is gewoon wat er dagelijks gebeurt.</p>
+        </span>
+
+        <span class="beat">
+          <span class="beat-label">04 · HET RESULTAAT</span>
+          <p>Het gemiddelde lid blijft langer dan drie jaar. De meesten komen twee tot vier keer per week. Ze worden sterker, dat is meetbaar. Belangrijker — ze komen graag. Dat laatste is waar ik ons aan afmeet.</p>
+        </span>
+
+        <div class="sig">— <span class="yel">PETER.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot" id="contact">
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand-name">CROSSFIT BERGEN OP ZOOM</div>
+        <span class="foot-brand-tag">COMMUNITY FIRST FITNESS</span>
+        <p>Boerhaaveplein 9<br>Bergen op Zoom</p>
+        <p><strong style="color: var(--text);">06 30 84 90 31</strong><br>info@crossfitbergenopzoom.nl</p>
+      </div>
+      <div>
+        <h6>PROGRAMMA'S</h6>
+        <ul>
+          <li><a href="#">CrossFit</a></li>
+          <li><a href="#">HYROX</a></li>
+          <li><a href="#">Powermama</a></li>
+          <li><a href="#">ZilverFitness</a></li>
+          <li><a href="#">Circuit</a></li>
+          <li><a href="#">Kids</a></li>
+          <li><a href="#">Private</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>SITE</h6>
+        <ul>
+          <li><a href="#rooster">Rooster</a></li>
+          <li><a href="#tarieven">Tarieven</a></li>
+          <li><a href="#coaches">Coaches</a></li>
+          <li><a href="#community">Community</a></li>
+          <li><a href="#">Wat is CrossFit?</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h6>VOLG</h6>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+        <h6 style="margin-top: 1.5rem;">BOEK</h6>
+        <ul>
+          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Proefweek</a></li>
+          <li><a href="#">Abonnement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© 2017–2026 CrossFit Bergen op Zoom · KvK-nr. volgt</span>
+      <span>Site v0.1 · apr 2026 · Sportbit voor boekingen</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
