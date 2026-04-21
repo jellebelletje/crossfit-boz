@@ -72,7 +72,7 @@ body::after {
 .hero-eyebrow .tick { width: 40px; height: 2px; background: var(--yellow); }
 .hero-eyebrow span { font-family: var(--font-signal); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--yellow); }
 .hero-title { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.5rem, 9.5vw, 9rem); line-height: 0.85; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1.75rem; }
-.hero-title .line-1 { display: block; color: var(--text); }
+.hero-title .line-1 { display: block; color: var(--text); white-space: nowrap; }
 .hero-title .line-2 { display: block; color: var(--yellow); margin-top: -0.02em; }
 .hero-title .dot { color: var(--yellow); }
 .hero-sub { max-width: 500px; font-size: 1.1rem; color: var(--text); line-height: 1.55; margin-bottom: 2.25rem; }
@@ -128,24 +128,59 @@ body::after {
 @media (max-width: 960px) { .prog-card.anchor, .prog-card.sm { grid-column: span 12; min-height: 420px; } }
 
 /* SOCIAL PROOF BLOCK */
-.sp-grid { display: grid; grid-template-columns: 1.2fr 1fr 0.9fr; gap: 0; border: 1px solid var(--line); }
-.sp-col { padding: 2.5rem; border-right: 1px solid var(--line); }
-.sp-col:last-child { border-right: 0; }
-.sp-col h4 { font-family: var(--font-signal); font-size: 0.65rem; letter-spacing: 0.18em; color: var(--yellow); margin-bottom: 1.5rem; }
-.sp-photo { height: 320px; margin-bottom: 1.25rem; }
-.sp-caption { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
-.sp-quote { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
-.sp-quote:last-child { margin-bottom: 0; border-bottom: 0; padding-bottom: 0; }
-.sp-quote blockquote { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1.1; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: -0.005em; }
-.sp-quote blockquote::before { content: "\201C"; color: var(--yellow); font-size: 1.8em; line-height: 0; vertical-align: -0.35em; margin-right: 0.1em; }
-.sp-quote .attr strong { font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.12em; display: block; }
-.sp-quote .attr span { font-size: 0.78rem; color: var(--text-dim); }
-.sp-stat { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
-.sp-stat:last-child { border-bottom: 0; }
-.sp-stat .v { font-family: var(--font-display); font-weight: 900; font-size: 3.25rem; line-height: 1; color: var(--text); }
-.sp-stat .v .yel { color: var(--yellow); }
-.sp-stat .k { font-family: var(--font-signal); font-size: 0.62rem; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 0.5rem; }
-@media (max-width: 960px) { .sp-grid { grid-template-columns: 1fr; } .sp-col { border-right: 0; border-bottom: 1px solid var(--line); } .sp-col:last-child { border-bottom: 0; } }
+/* HOW IT WORKS — mechanism section */
+.mech-lead { max-width: 640px; font-size: 1.05rem; color: var(--text); line-height: 1.6; margin: -1rem 0 2.75rem; }
+
+.whiteboard { background: #0E0E0E; border: 1px solid var(--line-bright); padding: 2rem 2.25rem; margin-bottom: 2.75rem; position: relative; }
+.whiteboard::before { content: ""; position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--yellow); }
+.wb-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed var(--line-bright); padding-bottom: 1rem; margin-bottom: 1.25rem; gap: 2rem; flex-wrap: wrap; }
+.wb-label { font-family: var(--font-signal); font-size: 0.72rem; letter-spacing: 0.18em; color: var(--yellow); }
+.wb-name { font-family: var(--font-signal); font-size: clamp(1.4rem, 3vw, 2.1rem); letter-spacing: 0.02em; text-transform: uppercase; }
+.wb-scheme { font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--text-dim); margin-bottom: 1rem; }
+.wb-list { list-style: none; }
+.wb-list li { font-family: var(--font-signal); font-size: clamp(1.05rem, 1.8vw, 1.35rem); letter-spacing: 0.02em; padding: 0.3rem 0; color: var(--text); }
+.wb-list li::before { content: "— "; color: var(--yellow); margin-right: 0.15em; }
+
+.scale-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); margin-bottom: 3rem; }
+.scale-col { padding: 1.5rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.scale-col:last-child { border-right: 0; }
+.scale-photo { aspect-ratio: 1/1; background: var(--bg-2); margin-bottom: 1.25rem; position: relative; overflow: hidden; }
+.scale-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; filter: grayscale(0.1) contrast(1.05); display: block; }
+.scale-name { padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.scale-name strong { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.01em; display: block; text-transform: uppercase; line-height: 1; margin-bottom: 0.4rem; }
+.scale-name span { font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; color: var(--text-dim); }
+.scale-list { list-style: none; margin-bottom: 1.25rem; flex: 1; }
+.scale-list li { font-size: 0.88rem; padding: 0.3rem 0; color: var(--text); line-height: 1.45; }
+.scale-list li::before { content: "→ "; color: var(--yellow); }
+.scale-coach { padding-top: 1rem; border-top: 1px solid var(--line); }
+.scale-coach strong { font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; color: var(--yellow); display: block; margin-bottom: 0.4rem; }
+.scale-coach p { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.25; font-style: italic; color: var(--text); }
+
+.hinge-quote { padding: 2.25rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 2.75rem; }
+.hinge-quote p { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 2.5vw, 2.1rem); line-height: 1.18; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 1.25rem; max-width: 1100px; }
+.hinge-quote p::before { content: "\201C"; color: var(--yellow); font-size: 1.4em; line-height: 0; vertical-align: -0.3em; margin-right: 0.1em; }
+.hinge-quote footer { font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-dim); }
+.hinge-quote footer strong { color: var(--text); margin-right: 0.35em; }
+
+.retention-community { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+.retention-num { font-family: var(--font-display); font-weight: 900; font-size: clamp(4.5rem, 10vw, 8rem); color: var(--yellow); line-height: 0.85; letter-spacing: -0.03em; }
+.retention-label { font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.24em; color: var(--text); margin-top: 0.85rem; }
+.retention-context { margin: 1.4rem 0 0; color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+.retention-context strong { color: var(--text); font-weight: 600; }
+.retention-community .r-right { margin: 0; }
+.retention-community .r-img { width: 100%; height: 100%; min-height: 320px; max-height: 440px; object-fit: cover; filter: grayscale(0.1) contrast(1.05); display: block; }
+.retention-community figcaption { color: var(--text-dim); font-size: 0.82rem; line-height: 1.5; margin-top: 0.85rem; font-style: italic; }
+@media (max-width: 780px) {
+  .retention-community { grid-template-columns: 1fr; gap: 2rem; }
+  .retention-community .r-img { min-height: 240px; max-height: 300px; }
+}
+
+@media (max-width: 960px) {
+  .scale-grid { grid-template-columns: 1fr; }
+  .scale-col { border-right: 0; border-bottom: 1px solid var(--line); }
+  .scale-col:last-child { border-bottom: 0; }
+  .wb-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
 
 /* FAQ */
 .faq-list { max-width: 900px; margin: 0 auto; }
@@ -184,7 +219,29 @@ body::after {
 .founder-body p { margin-bottom: 0.5rem; }
 .founder-body .sig { margin-top: 2rem; font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; }
 .founder-body .sig .yel { color: var(--yellow); }
+.founder-body .founder-lead { font-size: 1.15rem; line-height: 1.65; margin-bottom: 1.75rem; color: var(--text); }
+.founder-body .founder-lead strong { color: var(--yellow); font-weight: 700; }
+.founder-body details.founder-full { margin: 0.5rem 0 1.5rem; }
+.founder-body details.founder-full summary { cursor: pointer; font-family: var(--font-signal); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--yellow); text-transform: uppercase; padding: 0.9rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); list-style: none; transition: color 0.2s; }
+.founder-body details.founder-full summary::-webkit-details-marker { display: none; }
+.founder-body details.founder-full summary::after { content: " →"; display: inline-block; transition: transform 0.3s; }
+.founder-body details[open].founder-full summary { border-bottom-color: transparent; margin-bottom: 0.25rem; }
+.founder-body details[open].founder-full summary::after { transform: rotate(90deg); }
+.founder-body details.founder-full summary:hover { color: var(--yellow-hot); }
+.founder-body details.founder-full .beat:first-of-type { margin-top: 1rem; }
 @media (max-width: 800px) { .founder { grid-template-columns: 1fr; } .founder-portrait { width: 100%; height: 360px; } }
+
+/* NAV PHONE */
+.nav-phone { font-family: var(--font-signal); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text); display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.85rem; border: 1px solid var(--line-bright); transition: border-color 0.2s, color 0.2s; }
+.nav-phone:hover { border-color: var(--yellow); color: var(--yellow); }
+.nav-phone svg { width: 14px; height: 14px; flex-shrink: 0; }
+@media (max-width: 900px) { .nav-phone .nav-phone-num { display: none; } .nav-phone { padding: 0.6rem; } }
+
+/* AFFILIATE MARK (hero) */
+.affiliate-mark { display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 1.5rem; font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--text-dim); text-transform: uppercase; }
+.affiliate-mark::before { content: ""; width: 14px; height: 16px; background: var(--yellow); clip-path: var(--hexagon); display: inline-block; flex-shrink: 0; }
+
+/* PROGRAM AUDIENCE TAG — repurposes .prog-tag for audience labels */
 
 /* FOOTER */
 .foot { padding: 4rem 0 2rem; border-top: 1px solid var(--line); margin-top: 2rem; }
@@ -222,12 +279,16 @@ body::after {
     </a>
     <div class="nav-links">
       <a href="#programmas" class="active">Programma's</a>
-      <a href="#rooster">Rooster</a>
-      <a href="#tarieven">Tarieven</a>
-      <a href="#coaches">Coaches</a>
+      <a href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Rooster</a>
+      <a href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Tarieven</a>
       <a href="#community">Community</a>
+      <a href="#faq">Vragen</a>
       <a href="#contact">Contact</a>
     </div>
+    <a class="nav-phone" href="tel:+31630849031" aria-label="Bel CrossFit Bergen op Zoom">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="nav-phone-num">06 30 84 90 31</span>
+    </a>
     <a class="nav-cta" href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Gratis proefweek →</a>
   </div>
 </nav>
@@ -401,19 +462,20 @@ body::after {
         <span class="line-2">Harder<span class="dot">.</span></span>
       </h1>
       <p class="hero-sub">
-        <strong>CrossFit · HYROX · Powermama · ZilverFitness · Circuit · Kids · Private</strong>
-        <span>Dagelijks wisselende workouts onder begeleiding van coaches die je naam kennen, tussen mensen die je elke week terugziet. Jouw fitness voorop; de community eromheen.</span>
+        <strong>JOUW CROSSFIT-COMMUNITY IN BERGEN OP ZOOM</strong>
+        <span>Dagelijks wisselende workouts &mdash; voor alle niveaus, onder coaches die je naam kennen, tussen mensen die je elke week terugziet. Zeven programma&rsquo;s, &eacute;&eacute;n community.</span>
       </p>
       <div class="hero-cta-row">
         <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Boek je gratis proefweek →</a>
-        <a class="btn-ghost" href="#rooster">Bekijk rooster</a>
+        <a class="btn-ghost" href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Bekijk rooster</a>
       </div>
       <div class="hero-info-strip">
         <div><div class="k">LEDEN</div><div class="v">350+</div></div>
-        <div><div class="k">COACHES</div><div class="v">9</div></div>
+        <div><div class="k">COACHES</div><div class="v">10</div></div>
         <div><div class="k">PROGRAMMA'S</div><div class="v">7</div></div>
         <div><div class="k">SINDS</div><div class="v">2017</div></div>
       </div>
+      <div class="affiliate-mark">Offici&euml;le CrossFit affiliate &middot; sinds 2017</div>
     </div>
   </div>
 </header>
@@ -426,131 +488,173 @@ body::after {
       <span class="number">01 / WHAT WE TRAIN</span>
     </div>
     <div class="prog-wrap">
-      <article class="prog-card anchor">
+      <article class="prog-card anchor" id="programma-crossfit">
         <div class="sq-badge">ANKER · 7D/WK</div>
         <div class="prog-img"><img src="assets/crossfit.jpg" alt="CrossFit groepstraining — leden doen kracht-WOD" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">ANKER-PROGRAMMA</span>
+          <span class="prog-tag">VOOR ALLE NIVEAUS</span>
           <h5>CrossFit</h5>
           <p>Constant variërende, functionele bewegingen onder hoge intensiteit. Kracht, conditie, techniek, community — elke dag een andere WOD, elke dag dezelfde mensen om je heen.</p>
           <div class="meta"><span>60 MIN</span><span>ALLE NIVEAUS</span><span>DAGELIJKS</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-hyrox">
         <div class="sq-badge new">NIEUW</div>
         <div class="prog-img"><img src="assets/hyrox.jpg" alt="HYROX — lid pusht sled over gymvloer" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag new">NIEUW</span>
+          <span class="prog-tag new">VOOR GEVORDERDEN</span>
           <h5>HYROX</h5>
           <p>Compromisloze mix van lopen en functionele stations.</p>
           <div class="meta"><span>75 MIN</span><span>GEVORDERD</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-powermama">
         <div class="prog-img"><img src="assets/powermama.jpg" alt="Powermama — zwangere cursist doet kettlebell goblet squat" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">POWERMAMA</span>
+          <span class="prog-tag">ZWANGER &amp; POSTPARTUM</span>
           <h5>Powermama</h5>
           <p>Zwanger Fit · Mama Fit · Next Level.</p>
           <div class="meta"><span>60 MIN</span><span>3 TRACKS</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-zilverfitness">
         <div class="prog-img"><img src="assets/zilverfitness.jpg" alt="ZilverFitness — man doet kettlebell deadlift, trainingspartner op achtergrond met weerstandsband" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">ZILVERFITNESS</span>
+          <span class="prog-tag">VOOR 60+</span>
           <h5>ZilverFitness</h5>
           <p>Kracht, balans en mobiliteit — voor 60+.</p>
           <div class="meta"><span>60 MIN</span><span>60+</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-circuit">
         <div class="prog-img"><img src="assets/circuit.jpg" alt="Circuittraining — box jumps, push-ups en roeien op drie stations" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">CIRCUIT</span>
+          <span class="prog-tag">INSTAPVRIENDELIJK</span>
           <h5>Circuittraining</h5>
           <p>Korte, intense circuits. Snel zweet, weinig ballast.</p>
           <div class="meta"><span>45 MIN</span><span>BEGINNER+</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-kids">
         <div class="prog-img"><img src="assets/kids.jpg" alt="Kids — twee kinderen doen double-unders met springtouw, coach op achtergrond" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">KIDS</span>
+          <span class="prog-tag">7 T/M 14 JAAR</span>
           <h5>Kids</h5>
           <p>Bewegen, techniek, spel. Voor 7 t/m 14 jaar.</p>
           <div class="meta"><span>45 MIN</span><span>7–14 JR</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
-      <article class="prog-card sm">
+      <article class="prog-card sm" id="programma-private">
         <div class="prog-img"><img src="assets/private.jpg" alt="Private coaching — coach in gesprek met lid na zware set" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag">PRIVATE</span>
+          <span class="prog-tag">1-OP-1 OF DUO</span>
           <h5>Private Coaching</h5>
           <p>1-op-1 of duo. Voor wie specifiek wil werken.</p>
           <div class="meta"><span>60 MIN</span><span>OP AFSPRAAK</span></div>
-          <a class="more" href="#">Meer info →</a>
+          <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- SOCIAL PROOF BLOCK -->
+<!-- HOW IT WORKS — mechanism section. Personas (Henk, Lotte, Mark) are illustrative composites pending sign-off from real members. -->
 <section class="section" id="community">
   <div class="shell">
     <div class="section-head">
-      <h2>LEDEN. <span class="yel">STEMMEN.</span> GETALLEN.</h2>
-      <span class="number">02 / WHY IT WORKS</span>
+      <h2>EÉN WOD.<br><span class="yel">ELK LICHAAM.</span></h2>
+      <span class="number">02 / HOW IT WORKS</span>
     </div>
-    <div class="sp-grid">
-      <div class="sp-col">
-        <h4>DE GROEP · APR 2026</h4>
-        <div class="sp-photo"><img src="assets/community.jpg" alt="Groepsfoto — leden na een WOD in de box, CrossFit Bergen op Zoom logo op achtergrond" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.1) contrast(1.05);"></div>
-        <p class="sp-caption">Zaterdagochtend, 09:00. Een doorsnee WOD — niemand kent de hele groep, iedereen kent iemand.</p>
+
+    <p class="mech-lead">Elke dag staat er één WOD op het bord. Elke dag wordt die WOD in de zaal herschreven — voor de knieën van Henk, voor het 30-weekse bekken van Lotte, voor de 180 kg back squat van Mark. Drie lichamen, één training, hetzelfde uur op de klok.</p>
+
+    <div class="whiteboard" aria-label="WOD van de dag">
+      <div class="wb-header">
+        <span class="wb-label">WOD — WOENSDAG 22 APR</span>
+        <span class="wb-name">&ldquo;HELEN&rdquo;</span>
       </div>
-      <div class="sp-col">
-        <h4>TWEE STEMMEN</h4>
-        <div class="sp-quote">
-          <blockquote>Ik kwam binnen met lage rugklachten en zonder vertrouwen. Acht maanden later til ik mijn eigen lichaamsgewicht boven mijn hoofd.</blockquote>
-          <div class="attr">
-            <strong>SANNE — LID SINDS 2024</strong>
-            <span>Powermama Next Level + CrossFit</span>
-          </div>
+      <p class="wb-scheme">3 RONDES · FOR TIME</p>
+      <ul class="wb-list">
+        <li>400 M RUN</li>
+        <li>21 KETTLEBELL SWINGS (24/16 KG)</li>
+        <li>12 PULL-UPS</li>
+      </ul>
+    </div>
+
+    <div class="scale-grid">
+      <article class="scale-col">
+        <div class="scale-photo"><img src="assets/henk%20Medium.jpeg" alt="Portret Henk, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-name">
+          <strong>HENK</strong>
+          <span>64 · ZILVERFITNESS + CROSSFIT</span>
         </div>
-        <div class="sp-quote">
-          <blockquote>Zestig jaar, twee nieuwe knieën, en ik train drie keer per week. De coach schaalt alles, niemand kijkt scheef.</blockquote>
-          <div class="attr">
-            <strong>HENK — LID SINDS 2022</strong>
-            <span>ZilverFitness</span>
-          </div>
+        <ul class="scale-list">
+          <li>400 m stevig wandelen, korte versnellingen</li>
+          <li>21 kettlebell swings &mdash; 12 kg, focus op hinge</li>
+          <li>12 band-assisted pull-ups</li>
+        </ul>
+        <div class="scale-coach">
+          <strong>Coach Peter</strong>
+          <p>&ldquo;Henk traint voor de volgende dertig jaar. Hart omhoog, gewrichten heel.&rdquo;</p>
         </div>
+      </article>
+
+      <article class="scale-col">
+        <div class="scale-photo"><img src="assets/lotte%20Medium.jpeg" alt="Portret Lotte, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-name">
+          <strong>LOTTE</strong>
+          <span>30 WEKEN · POWERMAMA ZWANGER FIT</span>
+        </div>
+        <ul class="scale-list">
+          <li>400 m wandelen</li>
+          <li>21 kettlebell deadlifts &mdash; 16 kg, neutrale wervelkolom</li>
+          <li>12 ring rows, 60&deg;</li>
+        </ul>
+        <div class="scale-coach">
+          <strong>Coach Charis</strong>
+          <p>&ldquo;Geen swings onder het bekken, geen pull-ups overhead. Het bewegingspatroon blijft, de belasting schuift.&rdquo;</p>
+        </div>
+      </article>
+
+      <article class="scale-col">
+        <div class="scale-photo"><img src="assets/mark-lid%20Medium.jpeg" alt="Portret Mark, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-name">
+          <strong>MARK</strong>
+          <span>38 · CROSSFIT, 8E JAAR</span>
+        </div>
+        <ul class="scale-list">
+          <li>400 m run, sub-1:40</li>
+          <li>21 kettlebell swings &mdash; 32 kg</li>
+          <li>12 chest-to-bar pull-ups</li>
+        </ul>
+        <div class="scale-coach">
+          <strong>Coach Rob</strong>
+          <p>&ldquo;Zelfde WOD, zelfde klok. Geen scaling naar boven &mdash; daarvoor is er HYROX.&rdquo;</p>
+        </div>
+      </article>
+    </div>
+
+    <blockquote class="hinge-quote">
+      <p>Zestig jaar, twee nieuwe knie&euml;n, en ik train drie keer per week. De coach schaalt alles, niemand kijkt scheef. Ik doe niet een andere training dan Mark &mdash; ik doe dezelfde training, geschreven voor mijn lichaam. Dat is het verschil met elke sportschool waar ik geweest ben.</p>
+      <footer><strong>HENK</strong> &mdash; LID SINDS 2022 &middot; ZILVERFITNESS + CROSSFIT</footer>
+    </blockquote>
+
+    <div class="retention-community">
+      <div>
+        <div class="retention-num">84%</div>
+        <div class="retention-label">RETENTIE NA 12 MAANDEN</div>
+        <p class="retention-context">Trainen in een zaal waar de meerderheid niet meer komt, versus trainen naast mensen die elke week terug zijn en elke rep serieus nemen &mdash; dat doet iets heel anders met je eigen training. Motivatie is besmettelijk, inspiratie ook. Jouw fitness wordt niet alleen door jou bepaald, maar door de gemiddelde inzet van de mensen naast je.</p>
       </div>
-      <div class="sp-col">
-        <h4>HARDE CIJFERS</h4>
-        <div class="sp-stat">
-          <div class="v"><span class="yel">350</span>+</div>
-          <div class="k">ACTIEVE LEDEN</div>
-        </div>
-        <div class="sp-stat">
-          <div class="v">84%</div>
-          <div class="k">RETENTIE NA 12 MND</div>
-        </div>
-        <div class="sp-stat">
-          <div class="v">9 <span class="yel">JAAR</span></div>
-          <div class="k">OPEN SINDS 2017</div>
-        </div>
-        <div class="sp-stat">
-          <div class="v">3,2×</div>
-          <div class="k">GEMIDDELD / WEEK</div>
-        </div>
-      </div>
+      <figure class="r-right">
+        <img class="r-img" src="assets/community.jpg" alt="Groepsfoto — leden na een WOD in de box, CrossFit Bergen op Zoom logo op achtergrond" loading="lazy">
+        <figcaption>Zaterdagochtend, 09:00. Een doorsnee WOD &mdash; niemand kent de hele groep, iedereen kent iemand.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -566,6 +670,10 @@ body::after {
       <div class="faq-item open">
         <div class="faq-q">Ben ik fit genoeg om te beginnen?<span class="plus"></span></div>
         <div class="faq-a">Ja. Elke oefening is schaalbaar. De coach past gewicht, herhalingen en bewegingen aan op waar jij nu staat — niet op waar iemand anders staat. De meeste nieuwe leden beginnen met nul CrossFit-ervaring.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Hoe ziet mijn eerste les eruit?<span class="plus"></span></div>
+        <div class="faq-a">Je bent er tien minuten van tevoren. De coach stelt zich voor, loopt je kort rond door de zaal en laat zien waar de dingen staan. Daarna draai je mee in de WOD van die dag — beginnersvriendelijk geschaald, geen gewicht dat je niet kent, geen beweging die je niet snapt. Aan het einde checkt de coach hoe het ging. Na je proefweek weet je of het bij je past; wij ook.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Moet ik zwaar kunnen tillen?<span class="plus"></span></div>
@@ -634,25 +742,26 @@ body::after {
       <div class="founder-body">
         <span class="placeholder-tag">✕ Placeholder — Peter schrijft de definitieve versie</span>
 
-        <span class="beat">
-          <span class="beat-label">01 · JOUW SCHOENEN</span>
-          <p>Je weet al een tijd dat je moet beginnen. Je opent de site van een sportschool, je scrolt door abonnementen, je sluit hem weer. Je doet een week lang hardlopen en dan stopt het. Volgende maand weer. Ik ken dat, want de helft van onze leden loopt bij de eerste keer binnen met hetzelfde verhaal.</p>
-        </span>
+        <p class="founder-lead">Ik heb deze box in 2017 geopend met &eacute;&eacute;n regel: <strong>community first</strong>. Elke coach kent elk lid bij naam. Elke WOD wordt geschaald tot het niveau in de zaal. Wie drie weken wegblijft krijgt een berichtje. Geen stickers, geen gimmicks &mdash; gewoon wat er dagelijks gebeurt.</p>
 
-        <span class="beat">
-          <span class="beat-label">02 · HET PROBLEEM</span>
-          <p>Een sportschool is anoniem — drie honderd leden die niemand kent. Een YouTube-programma is generiek — het weet niet dat jij lage rugklachten hebt. Een personal trainer is duur en eenzaam. Wat ontbreekt is het tussenwerk: een plek waar een coach je naam kent, waar andere mensen zien of je er bent, waar het programma voor jou wordt geschaald.</p>
-        </span>
+        <details class="founder-full">
+          <summary>Lees Peter&rsquo;s volledige verhaal</summary>
 
-        <span class="beat">
-          <span class="beat-label">03 · WAAROM CFBOZ ZO</span>
-          <p>Ik heb deze box in 2017 geopend met één regel: community first. Dat betekent concreet — elke coach kent elk lid bij naam. Elke WOD wordt geschaald tot het niveau in de zaal. Wie drie weken wegblijft krijgt een berichtje. Geen stickers, geen gimmicks. Dat is geen marketing, het is gewoon wat er dagelijks gebeurt.</p>
-        </span>
+          <span class="beat">
+            <span class="beat-label">01 · JOUW SCHOENEN</span>
+            <p>Je weet al een tijd dat je moet beginnen. Je opent de site van een sportschool, je scrolt door abonnementen, je sluit hem weer. Je doet een week lang hardlopen en dan stopt het. Volgende maand weer. Ik ken dat, want de helft van onze leden loopt bij de eerste keer binnen met hetzelfde verhaal.</p>
+          </span>
 
-        <span class="beat">
-          <span class="beat-label">04 · HET RESULTAAT</span>
-          <p>Het gemiddelde lid blijft langer dan drie jaar. De meesten komen twee tot vier keer per week. Ze worden sterker, dat is meetbaar. Belangrijker — ze komen graag. Dat laatste is waar ik ons aan afmeet.</p>
-        </span>
+          <span class="beat">
+            <span class="beat-label">02 · HET PROBLEEM</span>
+            <p>Een sportschool is anoniem &mdash; drie honderd leden die niemand kent. Een YouTube-programma is generiek &mdash; het weet niet dat jij lage rugklachten hebt. Een personal trainer is duur en eenzaam. Wat ontbreekt is het tussenwerk: een plek waar een coach je naam kent, waar andere mensen zien of je er bent, waar het programma voor jou wordt geschaald.</p>
+          </span>
+
+          <span class="beat">
+            <span class="beat-label">03 · HET RESULTAAT</span>
+            <p>Het gemiddelde lid blijft langer dan drie jaar. De meesten komen twee tot vier keer per week. Ze worden sterker, dat is meetbaar. Belangrijker &mdash; ze komen graag. Dat laatste is waar ik ons aan afmeet.</p>
+          </span>
+        </details>
 
         <div class="sig">— <span class="yel">PETER.</span></div>
       </div>
@@ -667,43 +776,42 @@ body::after {
       <div>
         <div class="foot-brand-name">CROSSFIT BERGEN OP ZOOM</div>
         <span class="foot-brand-tag">COMMUNITY FIRST FITNESS</span>
-        <p>Boerhaaveplein 9<br>Bergen op Zoom</p>
-        <p><strong style="color: var(--text);">06 30 84 90 31</strong><br>info@crossfitbergenopzoom.nl</p>
+        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Boerhaaveplein+9+Bergen+op+Zoom" target="_blank" rel="noopener" style="color: var(--text-dim);">Boerhaaveplein 9<br>Bergen op Zoom</a></p>
+        <p><a href="tel:+31630849031" style="color: var(--text); font-weight: 700;">06 30 84 90 31</a><br><a href="mailto:info@crossfitbergenopzoom.nl" style="color: var(--text-dim);">info@crossfitbergenopzoom.nl</a></p>
       </div>
       <div>
         <h6>PROGRAMMA'S</h6>
         <ul>
-          <li><a href="#">CrossFit</a></li>
-          <li><a href="#">HYROX</a></li>
-          <li><a href="#">Powermama</a></li>
-          <li><a href="#">ZilverFitness</a></li>
-          <li><a href="#">Circuit</a></li>
-          <li><a href="#">Kids</a></li>
-          <li><a href="#">Private</a></li>
+          <li><a href="#programma-crossfit">CrossFit</a></li>
+          <li><a href="#programma-hyrox">HYROX</a></li>
+          <li><a href="#programma-powermama">Powermama</a></li>
+          <li><a href="#programma-zilverfitness">ZilverFitness</a></li>
+          <li><a href="#programma-circuit">Circuit</a></li>
+          <li><a href="#programma-kids">Kids</a></li>
+          <li><a href="#programma-private">Private</a></li>
         </ul>
       </div>
       <div>
         <h6>SITE</h6>
         <ul>
-          <li><a href="#rooster">Rooster</a></li>
-          <li><a href="#tarieven">Tarieven</a></li>
-          <li><a href="#coaches">Coaches</a></li>
+          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Rooster</a></li>
+          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Tarieven</a></li>
           <li><a href="#community">Community</a></li>
-          <li><a href="#">Wat is CrossFit?</a></li>
+          <li><a href="#faq">Vragen</a></li>
+          <li><a href="https://www.crossfit.com/what-is-crossfit" target="_blank" rel="noopener">Wat is CrossFit?</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
       <div>
         <h6>VOLG</h6>
         <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">YouTube</a></li>
+          <li><a href="https://www.instagram.com/crossfitboz/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/crossfitboz/" target="_blank" rel="noopener">Facebook</a></li>
         </ul>
         <h6 style="margin-top: 1.5rem;">BOEK</h6>
         <ul>
-          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8">Proefweek</a></li>
-          <li><a href="#">Abonnement</a></li>
+          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/cbm/account/aanmelden/rittenkaart/?stack=8" target="_blank" rel="noopener">Proefweek</a></li>
+          <li><a href="https://crossfitbergenopzoom.sportbitapp.nl/" target="_blank" rel="noopener">Abonnement</a></li>
         </ul>
       </div>
     </div>
