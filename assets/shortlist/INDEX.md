@@ -5,6 +5,8 @@ Beschrijving en trefwoorden staan ook in de metadata van elk bestand (IPTC/XMP),
 
 `!` in de oorspronkelijke lijst = topselectie, opgeslagen als **rating 5**. De rest staat op rating 3.
 
+> Beschrijvingen benoemen geen leeftijd en koppelen niemand aan een programma. Wie op welke foto staat en bij welk programma hoort, weet alleen de box.
+
 ## Topselectie
 
 | # | Titel | Beschrijving | Formaat |
@@ -33,7 +35,7 @@ Beschrijving en trefwoorden staan ook in de metadata van elk bestand (IPTC/XMP),
 | # | Titel | Beschrijving | Trefwoorden | Formaat | Rating |
 |---|---|---|---|---|---|
 | 632 | Hardlopen buiten | Drie leden lopen buiten op een pad langs een groenstrook; de voorste loper in zwart shirt zet aan. | hardlopen, buiten, groep, conditie, hyrox | liggend 1600×1066 | 3 |
-| 517 | Uitblazen bij het rack | Man met grijs haar staat uit te blazen bij een rack, wedstrijdtimer op de achtergrond. | rust, herstel, 50-plus, rack | staand 1066×1600 | 3 |
+| 517 | Uitblazen bij het rack | Lid staat uit te blazen bij een rack, wedstrijdtimer op de achtergrond. | rust, herstel, rack | staand 1066×1600 | 3 |
 | 177 | Sandbag op de schouders | Man in zwart compressieshirt tilt een sandbag op zijn schouders, blik strak vooruit. | sandbag, kracht, hyrox | liggend 1600×1066 | 3 |
 | 375 | Coach geeft uitleg | Vrouwelijke coach in CrossFit BoZ-shirt geeft uitleg met de handen in de zij, lid op de achtergrond. | coach, uitleg, vrouw | vierkant 1600×1600 | 3 |
 | 280 | Barbell naar de front rack | Vrouw haalt een barbell naar de front rack, paardenstaart in beweging. | barbell, front rack, crossfit, vrouw | liggend 1600×1066 | 3 |
@@ -49,12 +51,12 @@ Beschrijving en trefwoorden staan ook in de metadata van elk bestand (IPTC/XMP),
 | 381 | Battle ropes in zwart-wit | Zwart-witfoto: man trekt battle ropes met tegenlicht door de ramen. | battle ropes, zwart-wit, monochroom | staand 1066×1600 | 3 |
 | 581 | Push-ups op dumbbells | Man met bril doet push-ups met de handen op dumbbells. | push-up, dumbbell, vloer | staand 1066×1600 | 3 |
 | 256 | Lachend roeien | Vrouw roeit lachend op de Concept2, tweede vrouw kijkt toe met de handen in de zij, gele wand. | roeien, community, lachen, vrouw | staand 1200×1600 | 3 |
-| 104 | Ski-erg, 50-plus | Vrouw van middelbare leeftijd trekt de ski-erg met kracht naar beneden. | ski erg, 50-plus, vrouw, zilverfitness | staand 1200×1600 | 3 |
+| 104 | Ski-erg, kracht | Vrouw trekt de ski-erg met kracht naar beneden. | ski erg, vrouw, cardio | staand 1200×1600 | 3 |
 | 42 | Briefing bij het WOD-scherm | Coach in CrossFit-shirt wijst naar het scherm met de WOD-zones terwijl de klas toekijkt. | briefing, wod, coach, scherm, groep | liggend 1600×1066 | 3 |
 | 467 | Lunge met dumbbell | Man doet een lunge met dumbbell naast het rack, tweede lid op de achtergrond. | lunge, dumbbell | staand 1066×1600 | 3 |
 | 319 | Boks na de WOD | Drie leden geven elkaar een boks na afloop van de WOD. | community, boks, teamgevoel | liggend 1600×1066 | 3 |
 | 208 | Armen omhoog na de WOD | Man met opgestoken armen viert een afgeronde WOD, timer op 14:06 achter hem. | viering, timer, community | liggend 1600×1066 | 3 |
-| 562 | Assault bike met aanmoediging | Oudere man werkt op de assault bike terwijl twee leden hem aanmoedigen. | assault bike, aanmoediging, 50-plus, community | liggend 1600×1066 | 3 |
+| 562 | Assault bike met aanmoediging | Lid werkt op de assault bike terwijl twee leden hem aanmoedigen. | assault bike, aanmoediging, community | liggend 1600×1066 | 3 |
 | 84 | Wall ball, aanzet | Jonge man met wall ball in de aanzet, blik omhoog. | wall ball, crossfit | staand 1200×1600 | 3 |
 | 29 | Coach wijst naar het scherm | Coach wijst naar het WOD-scherm; de wand met ABILITY, MOTIVATION en ATTITUDE achter hem. | coach, briefing, wod, attitude-wand, topselectie | liggend 1600×1066 | 5 |
 | 428 | Twee coaches, lachend | Twee coaches poseren lachend in CrossFit BoZ-shirts midden in de zaal. | coaches, portret, duo | liggend 1600×1066 | 3 |
@@ -99,7 +101,7 @@ Beschrijving en trefwoorden staan ook in de metadata van elk bestand (IPTC/XMP),
 | 129 | V-ups op de vloer | Man doet V-ups op de vloer tussen de kettlebells. | core, vloer | liggend 1600×1066 | 3 |
 | 186 | Russian twists | Vrouw doet Russian twists met een medicine ball op de vloer. | core, medicine ball, vrouw | liggend 1600×1066 | 3 |
 | 126 | Battle ropes, lachend | Vrouw trekt lachend battle ropes, de koffiehoek op de achtergrond. | battle ropes, lachen, vrouw, notitie:hyrox | staand 1200×1600 | 3 |
-| 543 | Box jump, 60-plus | Oudere man met grijs haar springt op een plyo box terwijl de coach toekijkt. | box jump, 50-plus, zilverfitness, coach, schalen | staand 1200×1600 | 3 |
+| 543 | Box jump met coach | Lid springt op een plyo box terwijl de coach toekijkt. | box jump, plyo box, coach | staand 1200×1600 | 3 |
 | 455 | Kettlebell high pull | Vrouw haalt een kettlebell omhoog in een high pull. | kettlebell, vrouw | staand 1200×1600 | 3 |
 | 647 | Kids in de front rack | Meisje en jongen houden dumbbells in de front rack tijdens de kidsles. | kids, dumbbell | liggend 1600×1066 | 3 |
 | 573 | Portret coach buiten | Portret van een vrouwelijke coach buiten in CrossFit BoZ-shirt, lachend in profiel. | coach, portret, buiten, vrouw | staand 1200×1600 | 3 |
