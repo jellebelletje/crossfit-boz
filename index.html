@@ -129,40 +129,40 @@ body::after {
 
 /* SOCIAL PROOF BLOCK */
 /* HOW IT WORKS — mechanism section */
-.mech-lead { max-width: 640px; font-size: 1.05rem; color: var(--text); line-height: 1.6; margin: -1rem 0 2.75rem; }
+.mech-lead { max-width: 640px; font-size: 1rem; color: var(--text); line-height: 1.55; margin: -1rem 0 2rem; }
 
-.whiteboard { background: #0E0E0E; border: 1px solid var(--line-bright); padding: 2rem 2.25rem; margin-bottom: 2.75rem; position: relative; }
-.whiteboard::before { content: ""; position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: var(--yellow); }
-.wb-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed var(--line-bright); padding-bottom: 1rem; margin-bottom: 1.25rem; gap: 2rem; flex-wrap: wrap; }
-.wb-label { font-family: var(--font-signal); font-size: 0.72rem; letter-spacing: 0.18em; color: var(--yellow); }
-.wb-name { font-family: var(--font-signal); font-size: clamp(1.4rem, 3vw, 2.1rem); letter-spacing: 0.02em; text-transform: uppercase; }
-.wb-scheme { font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--text-dim); margin-bottom: 1rem; }
+.whiteboard { background: #0E0E0E; border: 1px solid var(--line-bright); padding: 1.5rem 1.75rem; margin-bottom: 2rem; position: relative; }
+.whiteboard::before { content: ""; position: absolute; left: 0; top: 0; width: 5px; height: 100%; background: var(--yellow); }
+.wb-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed var(--line-bright); padding-bottom: 0.75rem; margin-bottom: 0.9rem; gap: 1.5rem; flex-wrap: wrap; }
+.wb-label { font-family: var(--font-signal); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--yellow); }
+.wb-name { font-family: var(--font-signal); font-size: clamp(1.25rem, 2.6vw, 1.8rem); letter-spacing: 0.02em; text-transform: uppercase; }
+.wb-scheme { font-family: var(--font-signal); font-size: 0.74rem; letter-spacing: 0.22em; color: var(--text-dim); margin-bottom: 0.75rem; }
 .wb-list { list-style: none; }
-.wb-list li { font-family: var(--font-signal); font-size: clamp(1.05rem, 1.8vw, 1.35rem); letter-spacing: 0.02em; padding: 0.3rem 0; color: var(--text); }
+.wb-list li { font-family: var(--font-signal); font-size: clamp(0.98rem, 1.6vw, 1.2rem); letter-spacing: 0.02em; padding: 0.2rem 0; color: var(--text); }
 .wb-list li::before { content: "— "; color: var(--yellow); margin-right: 0.15em; }
 
-.scale-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); margin-bottom: 3rem; }
-.scale-col { padding: 1.5rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.scale-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); margin-bottom: 2rem; }
+.scale-col { padding: 1.25rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
 .scale-col:last-child { border-right: 0; }
-.scale-photo { aspect-ratio: 1/1; background: var(--bg-2); margin-bottom: 1.25rem; position: relative; overflow: hidden; }
+.scale-photo { aspect-ratio: 1/1; background: var(--bg-2); margin-bottom: 1rem; position: relative; overflow: hidden; }
 .scale-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; filter: grayscale(0.1) contrast(1.05); display: block; }
-.scale-name { padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--line); }
-.scale-name strong { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; letter-spacing: 0.01em; display: block; text-transform: uppercase; line-height: 1; margin-bottom: 0.4rem; }
-.scale-name span { font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; color: var(--text-dim); }
-.scale-list { list-style: none; margin-bottom: 1.25rem; flex: 1; }
-.scale-list li { font-size: 0.88rem; padding: 0.3rem 0; color: var(--text); line-height: 1.45; }
+.scale-name { padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--line); }
+.scale-name strong { font-family: var(--font-display); font-weight: 900; font-size: 1.4rem; letter-spacing: 0.01em; display: block; text-transform: uppercase; line-height: 1; margin-bottom: 0.35rem; }
+.scale-name span { font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.14em; color: var(--text-dim); }
+.scale-list { list-style: none; margin-bottom: 1rem; flex: 1; }
+.scale-list li { font-size: 0.85rem; padding: 0.25rem 0; color: var(--text); line-height: 1.4; }
 .scale-list li::before { content: "→ "; color: var(--yellow); }
-.scale-coach { padding-top: 1rem; border-top: 1px solid var(--line); }
-.scale-coach strong { font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; color: var(--yellow); display: block; margin-bottom: 0.4rem; }
-.scale-coach p { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.25; font-style: italic; color: var(--text); }
+.scale-coach { padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.scale-coach strong { font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.14em; color: var(--yellow); display: block; margin-bottom: 0.35rem; }
+.scale-coach p { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; line-height: 1.2; font-style: italic; color: var(--text); }
 
-.hinge-quote { padding: 2.25rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 2.75rem; }
-.hinge-quote p { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 2.5vw, 2.1rem); line-height: 1.18; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 1.25rem; max-width: 1100px; }
+.hinge-quote { padding: 1.75rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 2rem; }
+.hinge-quote p { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.2rem, 2.2vw, 1.85rem); line-height: 1.18; text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 1rem; max-width: 1100px; }
 .hinge-quote p::before { content: "\201C"; color: var(--yellow); font-size: 1.4em; line-height: 0; vertical-align: -0.3em; margin-right: 0.1em; }
-.hinge-quote footer { font-family: var(--font-signal); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-dim); }
+.hinge-quote footer { font-family: var(--font-signal); font-size: 0.66rem; letter-spacing: 0.14em; color: var(--text-dim); }
 .hinge-quote footer strong { color: var(--text); margin-right: 0.35em; }
 
-.retention-community { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+.retention-community { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.75rem, 4vw, 3rem); align-items: center; padding: 2rem 0; border-bottom: 1px solid var(--line); }
 .retention-num { font-family: var(--font-display); font-weight: 900; font-size: clamp(4.5rem, 10vw, 8rem); color: var(--yellow); line-height: 0.85; letter-spacing: -0.03em; }
 .retention-label { font-family: var(--font-signal); font-size: 0.78rem; letter-spacing: 0.24em; color: var(--text); margin-top: 0.85rem; }
 .retention-context { margin: 1.4rem 0 0; color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
@@ -295,7 +295,7 @@ body::after {
 
 <header class="hero">
   <div class="hero-photo">
-    <img src="assets/hero.jpg" alt="CrossFit training — vrouw doet wall ball shot, community op de achtergrond"
+    <img src="assets/hero.jpg" alt="Coach voor de logowand van CrossFit Bergen op Zoom, twee leden roeien op Concept2-ergometers"
          onerror="this.parentNode.classList.add('pent-fallback'); this.remove();">
   </div>
 
@@ -484,13 +484,13 @@ body::after {
 <section class="section" id="programmas">
   <div class="shell">
     <div class="section-head">
-      <h2>ZEVEN <span class="yel">PROGRAMMA'S.</span><br>EÉN COMMUNITY.</h2>
+      <h2>ZEVEN <span class="yel">PROGRAMMA'S.</span><br>ÉÉN COMMUNITY.</h2>
       <span class="number">01 / WHAT WE TRAIN</span>
     </div>
     <div class="prog-wrap">
       <article class="prog-card anchor" id="programma-crossfit">
         <div class="sq-badge">ANKER · 7D/WK</div>
-        <div class="prog-img"><img src="assets/crossfit.jpg" alt="CrossFit groepstraining — leden doen kracht-WOD" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/crossfit.jpg" alt="CrossFit — lid haalt een barbell naar de front rack tijdens een kracht-WOD" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">VOOR ALLE NIVEAUS</span>
           <h5>CrossFit</h5>
@@ -501,17 +501,17 @@ body::after {
       </article>
       <article class="prog-card sm" id="programma-hyrox">
         <div class="sq-badge new">NIEUW</div>
-        <div class="prog-img"><img src="assets/hyrox.jpg" alt="HYROX — lid pusht sled over gymvloer" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/hyrox.jpg" alt="HYROX — lid duwt een zwaarbeladen sled over de baan" loading="lazy"></div>
         <div class="content">
-          <span class="prog-tag new">VOOR GEVORDERDEN</span>
+          <span class="prog-tag new">VOOR ALLE NIVEAUS</span>
           <h5>HYROX</h5>
           <p>Compromisloze mix van lopen en functionele stations.</p>
-          <div class="meta"><span>75 MIN</span><span>GEVORDERD</span></div>
+          <div class="meta"><span>75 MIN</span><span>ALLE NIVEAUS</span></div>
           <a class="more" href="#faq">Meer info →</a>
         </div>
       </article>
       <article class="prog-card sm" id="programma-powermama">
-        <div class="prog-img"><img src="assets/powermama.jpg" alt="Powermama — zwangere cursist doet kettlebell goblet squat" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/powermama.jpg" alt="Powermama Zwanger Fit — groep zwangere cursisten traint met kettlebells" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">ZWANGER &amp; POSTPARTUM</span>
           <h5>Powermama</h5>
@@ -521,7 +521,7 @@ body::after {
         </div>
       </article>
       <article class="prog-card sm" id="programma-zilverfitness">
-        <div class="prog-img"><img src="assets/zilverfitness.jpg" alt="ZilverFitness — man doet kettlebell deadlift, trainingspartner op achtergrond met weerstandsband" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/zilverfitness.jpg" alt="ZilverFitness — 60-plusser traint met een barbell aan het rack" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">VOOR 60+</span>
           <h5>ZilverFitness</h5>
@@ -531,7 +531,7 @@ body::after {
         </div>
       </article>
       <article class="prog-card sm" id="programma-circuit">
-        <div class="prog-img"><img src="assets/circuit.jpg" alt="Circuittraining — box jumps, push-ups en roeien op drie stations" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/circuit.jpg" alt="Circuittraining — leden werken aan kettlebell-stations verspreid door de zaal" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">INSTAPVRIENDELIJK</span>
           <h5>Circuittraining</h5>
@@ -541,7 +541,7 @@ body::after {
         </div>
       </article>
       <article class="prog-card sm" id="programma-kids">
-        <div class="prog-img"><img src="assets/kids.jpg" alt="Kids — twee kinderen doen double-unders met springtouw, coach op achtergrond" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/kids.jpg" alt="Kids — kinderen drukken dumbbells boven het hoofd onder begeleiding van een coach" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">7 T/M 14 JAAR</span>
           <h5>Kids</h5>
@@ -551,7 +551,7 @@ body::after {
         </div>
       </article>
       <article class="prog-card sm" id="programma-private">
-        <div class="prog-img"><img src="assets/private.jpg" alt="Private coaching — coach in gesprek met lid na zware set" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/private.jpg" alt="Private coaching — coach begeleidt één lid bij een kettlebell deadlift" loading="lazy"></div>
         <div class="content">
           <span class="prog-tag">1-OP-1 OF DUO</span>
           <h5>Private Coaching</h5>
@@ -568,7 +568,7 @@ body::after {
 <section class="section" id="community">
   <div class="shell">
     <div class="section-head">
-      <h2>EÉN WOD.<br><span class="yel">ELK LICHAAM.</span></h2>
+      <h2>ÉÉN WOD.<br><span class="yel">ELK LICHAAM.</span></h2>
       <span class="number">02 / HOW IT WORKS</span>
     </div>
 
@@ -589,7 +589,7 @@ body::after {
 
     <div class="scale-grid">
       <article class="scale-col">
-        <div class="scale-photo"><img src="assets/henk%20Medium.jpeg" alt="Portret Henk, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-photo"><img src="assets/henk.jpg" alt="Portret Henk, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
         <div class="scale-name">
           <strong>HENK</strong>
           <span>64 · ZILVERFITNESS + CROSSFIT</span>
@@ -606,7 +606,7 @@ body::after {
       </article>
 
       <article class="scale-col">
-        <div class="scale-photo"><img src="assets/lotte%20Medium.jpeg" alt="Portret Lotte, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-photo"><img src="assets/lotte.jpg" alt="Portret Lotte, zwanger lid dat Powermama Zwanger Fit volgt" loading="lazy"></div>
         <div class="scale-name">
           <strong>LOTTE</strong>
           <span>30 WEKEN · POWERMAMA ZWANGER FIT</span>
@@ -623,7 +623,7 @@ body::after {
       </article>
 
       <article class="scale-col">
-        <div class="scale-photo"><img src="assets/mark-lid%20Medium.jpeg" alt="Portret Mark, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
+        <div class="scale-photo"><img src="assets/mark-lid.jpg" alt="Portret Mark, lid van CrossFit Bergen op Zoom" loading="lazy"></div>
         <div class="scale-name">
           <strong>MARK</strong>
           <span>38 · CROSSFIT, 8E JAAR</span>
@@ -641,7 +641,7 @@ body::after {
     </div>
 
     <blockquote class="hinge-quote">
-      <p>Zestig jaar, twee nieuwe knie&euml;n, en ik train drie keer per week. De coach schaalt alles, niemand kijkt scheef. Ik doe niet een andere training dan Mark &mdash; ik doe dezelfde training, geschreven voor mijn lichaam. Dat is het verschil met elke sportschool waar ik geweest ben.</p>
+      <p>Zestig jaar, twee nieuwe knie&euml;n, en ik train drie keer per week. Ik doe niet een andere training dan Mark &mdash; ik doe dezelfde training, geschreven voor mijn lichaam. Dat is het verschil met elke sportschool waar ik geweest ben.</p>
       <footer><strong>HENK</strong> &mdash; LID SINDS 2022 &middot; ZILVERFITNESS + CROSSFIT</footer>
     </blockquote>
 
@@ -652,7 +652,7 @@ body::after {
         <p class="retention-context">Trainen in een zaal waar de meerderheid niet meer komt, versus trainen naast mensen die elke week terug zijn en elke rep serieus nemen &mdash; dat doet iets heel anders met je eigen training. Motivatie is besmettelijk, inspiratie ook. Jouw fitness wordt niet alleen door jou bepaald, maar door de gemiddelde inzet van de mensen naast je.</p>
       </div>
       <figure class="r-right">
-        <img class="r-img" src="assets/community.jpg" alt="Groepsfoto — leden na een WOD in de box, CrossFit Bergen op Zoom logo op achtergrond" loading="lazy">
+        <img class="r-img" src="assets/community.jpg" alt="Groepsfoto — leden juichen na een WOD voor de logowand van CrossFit Bergen op Zoom" loading="lazy">
         <figcaption>Zaterdagochtend, 09:00. Een doorsnee WOD &mdash; niemand kent de hele groep, iedereen kent iemand.</figcaption>
       </figure>
     </div>
@@ -692,12 +692,8 @@ body::after {
         <div class="faq-a">Meld het bij inschrijving. We schalen of vervangen bewegingen per les. Bij chronische klachten denken we mee met je fysio.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Wat als ik op vakantie ben?<span class="plus"></span></div>
-        <div class="faq-a">Credits vervallen niet per week. Je abonnement loopt door, maar ongebruikte credits schuiven mee naar de volgende maand binnen je kwartaal.</div>
-      </div>
-      <div class="faq-item">
         <div class="faq-q">Moet ik een abonnement nemen of kan ik losse lessen boeken?<span class="plus"></span></div>
-        <div class="faq-a">Beide. Abonnementen IRON / BRONZE / SILVER / GOLD lopen per kwartaal. Losse credits: €70 voor 5, €125 voor 10. Eerste proefweek is altijd gratis.</div>
+        <div class="faq-a">Beide kan. Vier abonnementen, alle per kwartaal: IRON €97,50 (5 credits/maand), BRONZE €165 (10), SILVER €202,50 (16), GOLD €240 (22). Liever losse credits? €70 voor 5 (12 maanden geldig) of €125 voor 10 (24 maanden geldig). Eerste proefweek is altijd gratis.</div>
       </div>
     </div>
   </div>
@@ -733,7 +729,7 @@ body::after {
     </div>
     <div class="founder">
       <div>
-        <div class="founder-portrait"><img src="assets/peter.jpg" alt="Peter — eigenaar en head coach" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.1) contrast(1.05);"></div>
+        <div class="founder-portrait"><img src="assets/peter.jpg" alt="Peter — eigenaar en head coach van CrossFit Bergen op Zoom" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(0.1) contrast(1.05);"></div>
         <div class="founder-meta">
           <div class="name">Peter</div>
           EIGENAAR · HEAD COACH · SINDS 2017
@@ -742,7 +738,7 @@ body::after {
       <div class="founder-body">
         <span class="placeholder-tag">✕ Placeholder — Peter schrijft de definitieve versie</span>
 
-        <p class="founder-lead">Ik heb deze box in 2017 geopend met &eacute;&eacute;n regel: <strong>community first</strong>. Elke coach kent elk lid bij naam. Elke WOD wordt geschaald tot het niveau in de zaal. Wie drie weken wegblijft krijgt een berichtje. Geen stickers, geen gimmicks &mdash; gewoon wat er dagelijks gebeurt.</p>
+        <p class="founder-lead">Ik heb deze box in 2017 geopend met &eacute;&eacute;n regel: <strong>community first</strong>. Elke coach kent elk lid bij naam. Elke WOD wordt geschaald tot het niveau in de zaal. Geen stickers, geen gimmicks &mdash; gewoon wat er dagelijks gebeurt.</p>
 
         <details class="founder-full">
           <summary>Lees Peter&rsquo;s volledige verhaal</summary>
