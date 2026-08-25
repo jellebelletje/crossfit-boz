@@ -4,3 +4,8 @@ original-images/
 images-smaller/
 reference-images/
 af files - git-ignore/
+
+# Fotoshoot-werkbestanden: wel op schijf, niet in git
+assets/shortlist/*.jpg
+assets/coaches-website-backup/
+assets/*-comp*.png
