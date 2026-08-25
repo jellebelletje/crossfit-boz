@@ -243,16 +243,40 @@ body::after {
 .pcoach-card { position: relative; background: var(--bg-1); border: 1px solid var(--line); padding: 1.75rem 1.35rem; display: flex; flex-direction: column; }
 .pcoach-card p { font-size: 0.85rem; color: var(--text-read); margin-bottom: 1.25rem; flex: 1; }
 
-/* ROOSTER */
-.rooster-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-.r-day { background: var(--bg-0); padding: 1rem 0.85rem 1.25rem; }
-.r-dag { font-family: var(--font-signal); font-size: 0.58rem; letter-spacing: 0.14em; color: var(--yellow); padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid var(--line); }
-.r-day ul { list-style: none; }
-.r-day li { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.45rem 0; border-bottom: 1px dashed var(--line); }
-.r-day li:last-child { border-bottom: 0; }
-.r-day .t { font-family: var(--font-display); font-weight: 900; font-size: 1.05rem; color: var(--text); line-height: 1; }
-.r-day .c { font-family: var(--font-signal); font-size: 0.5rem; letter-spacing: 0.1em; color: var(--text-dim); }
-.r-day .c.hyrox, .r-day .c.metcon, .r-day .c.circuit, .r-day .c.kids { color: var(--yellow); }
+/* ROOSTER — 7 day columns x 3 dayparts. display:contents on .r-day flattens each day
+   into the parent grid so every OCHTEND/MIDDAG/AVOND block lands on the same row and
+   the whole thing stays scannable horizontally as well as vertically. */
+.rooster-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto auto auto auto; grid-auto-flow: column;
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.r-day { display: contents; }
+.r-dag { grid-row: 1; font-family: var(--font-signal); font-size: 0.6rem; letter-spacing: 0.14em; color: var(--text); background: var(--bg-2); padding: 0.7rem 0.85rem; text-align: center; }
+.r-ochtend { grid-row: 2; }
+.r-middag  { grid-row: 3; }
+.r-avond   { grid-row: 4; }
+
+/* Dayparts run light-to-dark across the day, each with its own labelled chip */
+.r-part { padding: 0.85rem 0.85rem 1rem; }
+.r-ochtend { background: #121212; }
+.r-middag  { background: #0C0C0C; }
+.r-avond   { background: #050505; }
+.r-part-label { display: inline-block; font-family: var(--font-signal); font-size: 0.5rem; letter-spacing: 0.16em; padding: 0.25rem 0.45rem; margin-bottom: 0.7rem; }
+.r-ochtend .r-part-label { background: var(--yellow); color: var(--bg-0); }
+.r-middag  .r-part-label { background: var(--text);   color: var(--bg-0); }
+.r-avond   .r-part-label { background: transparent; color: var(--text-dim); border: 1px solid var(--line-bright); }
+
+.r-part ul { list-style: none; }
+.r-part li { padding: 0.4rem 0; border-bottom: 1px dashed var(--line); display: flex; flex-direction: column; gap: 0.15rem; }
+.r-part li:last-child { border-bottom: 0; }
+.r-part .t { font-family: var(--font-display); font-weight: 900; font-size: 1rem; line-height: 1; color: var(--text); }
+.r-part .t em { font-style: normal; font-weight: 700; font-size: 0.72rem; color: var(--text-low); margin-left: 0.15em; }
+.r-part .c { font-family: var(--font-signal); font-size: 0.5rem; letter-spacing: 0.09em; color: var(--text-read); line-height: 1.3; }
+/* Anchor programmes carry the accent; open gym stays quiet since it runs alongside them */
+.c-wod, .c-hyrox, .c-metcon, .c-circuit, .c-gymnastics, .c-cf, .c-zilverfitness, .c-powermama { color: var(--yellow); }
+.c-open { color: var(--text-low); }
+.r-leeg { color: var(--text-low); font-size: 0.72rem; font-family: var(--font-signal); letter-spacing: 0.1em; }
 .rooster-note { margin-top: 1.25rem; font-size: 0.8rem; color: var(--text-low); }
 .rooster-note a { color: var(--yellow); }
 
@@ -316,7 +340,9 @@ body::after {
 @media (max-width: 1100px) {
   .price-grid { grid-template-columns: repeat(3, 1fr); }
   .pcoach-grid { grid-template-columns: repeat(2, 1fr); }
-  .rooster-grid { grid-template-columns: repeat(4, 1fr); }
+  .rooster-grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: none; grid-auto-flow: row; }
+  .r-day { display: flex; flex-direction: column; }
+  .r-dag, .r-ochtend, .r-middag, .r-avond { grid-row: auto; }
 }
 @media (max-width: 900px) {
   .cond-grid { grid-template-columns: 1fr; }
@@ -574,7 +600,7 @@ body::after {
       <p>De meeste mensen weten best dat ze meer zouden moeten bewegen.</p>
       <p>Het moeilijke is niet beginnen. Het moeilijke is blijven komen.</p>
       <p>Daar helpen structuur én een groep bij.</p>
-      <p>De training staat klaar. De coach vertelt je wat je gaat doen. En als je alleen misschien nét iets eerder zou stoppen, zie je iemand naast je doorgaan en doe je zelf ook nog een herhaling.</p>
+      <p>De training staat klaar. De coach legt uit wat je gaat doen. En net als je wilt stoppen, zie je iemand naast je doorgaan. Dan pak je zelf tóch nog die ene herhaling.</p>
       <p>Je wordt aangemoedigd. Je trekt elkaar mee. En vaak haal je meer uit jezelf dan je in je eentje zou hebben gedaan.</p>
     </div>
     <ul class="step-list">
@@ -596,7 +622,7 @@ body::after {
     <div class="prose">
       <p>Je hoeft niet fit te zijn voordat je CrossFit kunt doen.</p>
       <p>Daar is CrossFit juist voor.</p>
-      <p>Iedere workout heeft een doel. De coach helpt je om dat doel te bereiken op een manier die past bij jouw lichaam, ervaring en niveau.</p>
+      <p>Iedere WOD (Workout of the Day) heeft een doel. De coach helpt je om dat doel te bereiken op een manier die past bij jouw lichaam, ervaring en niveau.</p>
       <p>Dat kan betekenen: minder gewicht, een andere beweging, minder herhalingen of een aangepast tempo.</p>
     </div>
 
@@ -1063,7 +1089,7 @@ body::after {
   </div>
 </section>
 
-<!-- 08 — ROOSTER (static; mirrors the drop-in planner) -->
+<!-- 08 — ROOSTER — typische week, overgenomen uit de Sportbit-kalender -->
 <section class="section band" id="rooster">
   <div class="shell">
     <div class="section-head">
@@ -1071,51 +1097,193 @@ body::after {
       <span class="number">08 / ROOSTER</span>
     </div>
     <div class="rooster-grid">
-      <div class="r-day"><div class="r-dag">MAANDAG</div><ul>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">17:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">18:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">18:30</span><span class="c hyrox">HYROX</span></li>
-        <li><span class="t">19:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">19:30</span><span class="c metcon">METCON</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">DINSDAG</div><ul>
-        <li><span class="t">06:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">18:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">19:30</span><span class="c wod">WOD</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">WOENSDAG</div><ul>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">16:30</span><span class="c kids">CF KIDS</span></li>
-        <li><span class="t">19:30</span><span class="c wod">WOD</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">DONDERDAG</div><ul>
-        <li><span class="t">06:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">17:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">18:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">19:30</span><span class="c wod">WOD</span></li>
-        <li><span class="t">19:30</span><span class="c circuit">CIRCUIT</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">VRIJDAG</div><ul>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">16:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">18:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">19:00</span><span class="c metcon">METCON</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">ZATERDAG</div><ul>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">09:00</span><span class="c hyrox">HYROX</span></li>
-        <li><span class="t">10:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">10:00</span><span class="c hyrox">HYROX</span></li>
-      </ul></div>
-      <div class="r-day"><div class="r-dag">ZONDAG</div><ul>
-        <li><span class="t">09:00</span><span class="c wod">WOD</span></li>
-        <li><span class="t">10:00</span><span class="c wod">WOD</span></li>
-      </ul></div>
+      <div class="r-day">
+        <div class="r-dag">MAANDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">11:15<em>–12:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">11:15<em>–12:15</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <ul>
+            <li><span class="t">17:30<em>–18:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">17:30<em>–18:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-hyrox">HYROX</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-metcon">METCON</span></li>
+            <li><span class="t">20:30<em>–21:30</em></span><span class="c c-metcon">METCON</span></li>
+            <li><span class="t">20:30<em>–21:30</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">DINSDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">06:30<em>–07:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">06:30<em>–07:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">11:15<em>–12:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <ul>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-circuit">CIRCUIT</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">WOENSDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <ul>
+            <li><span class="t">15:30<em>–16:30</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">16:30<em>–17:15</em></span><span class="c c-cf">CF KIDS</span></li>
+            <li><span class="t">16:30<em>–17:30</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <ul>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-metcon">METCON</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">DONDERDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <ul>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-hyrox">HYROX</span></li>
+            <li><span class="t">18:30<em>–19:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-circuit">CIRCUIT</span></li>
+            <li><span class="t">19:30<em>–20:30</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">20:30<em>–21:30</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">VRIJDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:15<em>–11:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">11:15<em>–12:15</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <ul>
+            <li><span class="t">18:00<em>–19:00</em></span><span class="c c-metcon">METCON</span></li>
+            <li><span class="t">18:00<em>–19:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">19:00<em>–20:00</em></span><span class="c c-gymnastics">GYMNASTICS</span></li>
+            <li><span class="t">19:00<em>–20:00</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">ZATERDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-hyrox">HYROX</span></li>
+            <li><span class="t">10:00<em>–11:00</em></span><span class="c c-hyrox">HYROX</span></li>
+            <li><span class="t">10:00<em>–11:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">11:00<em>–12:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">11:15<em>–12:00</em></span><span class="c c-cf">CF KIDS</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <ul>
+            <li><span class="t">12:00<em>–13:00</em></span><span class="c c-powermama">POWERMAMA ZWANGER</span></li>
+            <li><span class="t">14:30<em>–15:30</em></span><span class="c c-powermama">POWERMAMA CORE RESTORE</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+      </div>
+      <div class="r-day">
+        <div class="r-dag">ZONDAG</div>
+        <div class="r-part r-ochtend">
+          <div class="r-part-label">OCHTEND</div>
+          <ul>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">09:00<em>–10:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">10:00<em>–11:00</em></span><span class="c c-wod">WOD</span></li>
+            <li><span class="t">10:00<em>–11:00</em></span><span class="c c-open">OPEN GYM</span></li>
+            <li><span class="t">11:00<em>–12:00</em></span><span class="c c-zilverfitness">ZILVERFITNESS</span></li>
+            <li><span class="t">11:00<em>–12:00</em></span><span class="c c-open">OPEN GYM</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-middag">
+          <div class="r-part-label">MIDDAG</div>
+          <ul>
+            <li><span class="t">12:30<em>–13:30</em></span><span class="c c-powermama">POWERMAMA CORE RESTORE</span></li>
+          </ul>
+        </div>
+        <div class="r-part r-avond">
+          <div class="r-part-label">AVOND</div>
+          <p class="r-leeg">Geen lessen</p>
+        </div>
+      </div>
     </div>
-    <p class="rooster-note">Wijzigingen voorbehouden — actuele tijden en beschikbaarheid staan in de app.
+    <p class="rooster-note">Een typische week — wijzigingen voorbehouden. Actuele tijden en beschikbaarheid staan in de app.
       <a href="https://crossfitbergenopzoom.sportbitapp.nl/web/nl/login" target="_blank" rel="noopener">Inloggen →</a></p>
   </div>
 </section>
