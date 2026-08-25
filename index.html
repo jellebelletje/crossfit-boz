@@ -96,6 +96,18 @@ body::after {
 
 /* PLACEHOLDER TILES (square photo slots) */
 
+/* PROGRAMME DETAIL — the seven expanded sections the cards scroll to. Lighter
+   heads than the numbered spine so the run reads as one zone, not seven chapters. */
+.prog-detail { padding: 4.5rem 0; }
+.prog-detail .section-head { margin-bottom: 2.5rem; }
+.prog-detail .section-head h2 { font-size: clamp(1.9rem, 4vw, 3.4rem); }
+.prog-detail .prose { max-width: 680px; }
+.prog-detail .statement { font-size: clamp(1.35rem, 3vw, 2.4rem); margin: 2rem 0; }
+.prog-detail .step-list { margin: 2rem 0; }
+.prog-detail .step-list li { font-size: clamp(1.05rem, 1.9vw, 1.35rem); }
+.prog-detail .sect-cta { margin-top: 2.5rem; }
+.prog-detail .prose + .step-list, .prog-detail .step-list + .prose { margin-top: 2rem; }
+
 /* PROGRAMMES — photo above, body below (the new copy is far too long to overlay) */
 .prog-wrap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem; }
 .prog-card { position: relative; overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); display: flex; flex-direction: column; transition: transform 0.4s, border-color 0.3s; }
@@ -704,11 +716,9 @@ body::after {
         <div class="prog-img"><img src="assets/crossfit.jpg" alt="CrossFit — lid haalt een barbell naar de front rack tijdens een kracht-WOD" loading="lazy"></div>
         <div class="content">
           <h5>CrossFit</h5>
-          <h6>Sterker. Fitter. Veelzijdiger.</h6>
-          <p>Kracht, conditie en techniek komen iedere training op een andere manier samen.</p>
-          <p>Je traint in een groep, maar de coach past oefeningen, gewicht en intensiteit aan jouw niveau aan.</p>
-          <p>Dat maakt dezelfde WOD uitdagend voor iemand die gisteren begonnen is én voor iemand die al jaren CrossFit doet.</p>
-          <a class="more" href="#waarom">Ontdek CrossFit →</a>
+          <h6>Toe aan een nieuwe uitdaging?</h6>
+          <p>Kracht, conditie en techniek in één training. Geschikt als CrossFit nieuw voor je is, uitdagend genoeg om jarenlang in te blijven groeien.</p>
+          <a class="more" href="#crossfit">Ontdek CrossFit →</a>
         </div>
       </article>
 
@@ -716,10 +726,9 @@ body::after {
         <div class="prog-img"><img src="assets/hyrox.jpg" alt="HYROX — lid duwt een zwaarbeladen sled over de baan" loading="lazy"></div>
         <div class="content">
           <h5>HYROX</h5>
-          <h6>Voor wie graag een tandje bijzet.</h6>
-          <p>Een combinatie van hardlopen, kracht en functionele oefeningen.</p>
-          <p>Voor iedereen die gericht wil werken aan conditie, kracht en het vermogen om door te gaan wanneer het zwaar wordt.</p>
-          <a class="more" href="#rooster">Ontdek HYROX →</a>
+          <h6>Train ergens naartoe.</h6>
+          <p>Hardlopen, kracht en functionele oefeningen in één duidelijke uitdaging. Voor wie graag weet waarvoor hij traint — en wil ontdekken hoeveel sneller en sterker hij kan worden.</p>
+          <a class="more" href="#hyrox">Ontdek HYROX →</a>
         </div>
       </article>
 
@@ -727,10 +736,9 @@ body::after {
         <div class="prog-img"><img src="assets/powermama.jpg" alt="Powermama — groep zwangere cursisten doet samen mobiliteitsoefeningen op de mat" loading="lazy"></div>
         <div class="content">
           <h5>Powermama</h5>
-          <h6>Sterk tijdens en na je zwangerschap.</h6>
-          <p>Je lichaam verandert. Je training verandert mee.</p>
-          <p>Powermama helpt je verantwoord te blijven bewegen tijdens je zwangerschap en daarna weer kracht op te bouwen.</p>
-          <a class="more" href="#faq">Ontdek Powermama →</a>
+          <h6>Je lichaam verandert. Je training verandert mee.</h6>
+          <p>Verantwoord blijven bewegen tijdens je zwangerschap en daarna weer kracht opbouwen, met begeleiding die rekening houdt met de fase waarin jij zit.</p>
+          <a class="more" href="#powermama">Ontdek Powermama →</a>
         </div>
       </article>
 
@@ -738,10 +746,9 @@ body::after {
         <div class="prog-img"><img src="assets/zilverfitness.jpg" alt="ZilverFitness — vier deelnemers doen ring rows aan de turnringen in de zaal" loading="lazy"></div>
         <div class="content">
           <h5>ZilverFitness</h5>
-          <h6>Sterk blijven is ook vooruitgang.</h6>
-          <p>Naarmate je ouder wordt, worden kracht, balans en mobiliteit steeds belangrijker.</p>
-          <p>ZilverFitness helpt je om te blijven doen wat je graag doet — onder begeleiding en op je eigen tempo.</p>
-          <a class="more" href="#faq">Ontdek ZilverFitness →</a>
+          <h6>Sterk blijven voor het leven dat je graag leidt.</h6>
+          <p>Training voor 55-plussers die sterk, mobiel en zelfstandig willen blijven — van traplopen en tillen tot wandelen, fietsen en spelen met de kleinkinderen.</p>
+          <a class="more" href="#zilverfitness">Ontdek ZilverFitness →</a>
         </div>
       </article>
 
@@ -749,22 +756,19 @@ body::after {
         <div class="prog-img"><img src="assets/circuit.jpg" alt="Circuittraining — leden werken aan kettlebell-stations verspreid door de zaal" loading="lazy"></div>
         <div class="content">
           <h5>Circuittraining</h5>
-          <h6>Gewoon lekker trainen.</h6>
-          <p>Geen ingewikkeld programma. Wel een afwisselende training voor kracht en conditie.</p>
-          <p>Makkelijk om in te stappen en uitdagend genoeg om steeds een beetje beter te worden.</p>
-          <a class="more" href="#rooster">Ontdek Circuittraining →</a>
+          <h6>Gewoon goed trainen.</h6>
+          <p>Een duidelijke, afwisselende training voor kracht en conditie. Geen ingewikkelde technieken of zelfbedachte schema&rsquo;s: je komt binnen en kunt aan de slag.</p>
+          <a class="more" href="#circuittraining">Ontdek Circuittraining →</a>
         </div>
       </article>
 
       <article class="prog-card sm" id="programma-kids">
-        <div class="prog-img"><img src="assets/kids.jpg" alt="Kids — kinderen drukken dumbbells boven het hoofd onder begeleiding van een coach" loading="lazy"></div>
+        <div class="prog-img"><img src="assets/kids.jpg" alt="CrossFit Kids — kinderen drukken dumbbells boven het hoofd onder begeleiding van een coach" loading="lazy"></div>
         <div class="content">
-          <h5>Kids</h5>
-          <h6>Jong geleerd is graag bewogen.</h6>
-          <p>Bij Kids gaat het om bewegen, ontdekken, samenwerken en plezier krijgen in sport.</p>
-          <p>Niet om wie het sterkste of snelste is.</p>
-          <p>Wel om kinderen te laten ervaren hoeveel hun lichaam kan.</p>
-          <a class="more" href="#rooster">Ontdek Kids →</a>
+          <h5>CrossFit Kids</h5>
+          <h6>Sterk worden begint met goed leren bewegen.</h6>
+          <p>Rennen, springen, tillen, klimmen, samenwerken en vooral veel doen. CrossFit Kids helpt kinderen vertrouwen te krijgen in wat hun lichaam kan.</p>
+          <a class="more" href="#crossfit-kids">Ontdek CrossFit Kids →</a>
         </div>
       </article>
 
@@ -772,12 +776,9 @@ body::after {
         <div class="prog-img"><img src="assets/private.jpg" alt="Private coaching — coach begeleidt één lid bij een kettlebell deadlift" loading="lazy"></div>
         <div class="content">
           <h5>Private Coaching</h5>
-          <h6>Alle aandacht voor jouw doel.</h6>
-          <p>Soms wil je niet trainen in een groep.</p>
-          <p>Misschien wil je gericht aan je techniek werken. Een specifieke beweging onder de knie krijgen. Terugkomen na een periode waarin je minder hebt kunnen trainen. Of gewoon gericht werken aan een persoonlijk doel.</p>
-          <p>Met Private Coaching train je één-op-één met een coach of samen met z'n tweeën.</p>
-          <p>De training draait volledig om wat jij nodig hebt.</p>
-          <a class="more" href="#private">Bekijk Private Coaching →</a>
+          <h6>Jouw doel. Alle aandacht.</h6>
+          <p>Werk één-op-één of met z&rsquo;n tweeën aan precies datgene waarin jij verder wilt komen — van techniek en kracht tot een heel concreet persoonlijk doel.</p>
+          <a class="more" href="#private-coaching">Ontdek Private Coaching →</a>
         </div>
       </article>
 
@@ -785,6 +786,233 @@ body::after {
   </div>
 </section>
 
+<!-- 04 DETAIL — één uitgebreide sectie per programma; de kaarten scrollen hiernaartoe -->
+<section class="section prog-detail" id="crossfit">
+  <div class="shell">
+    <div class="section-head">
+      <h2>NIEUW IN CROSSFIT.<br><span class="yel">NIET NIEUW IN TRAINEN.</span></h2>
+      <span class="number">04 / CROSSFIT</span>
+    </div>
+    <div class="prose">
+      <p>CrossFit is voor mensen die serieus willen trainen — ook als ze nog nooit een CrossFit-les hebben gedaan.</p>
+      <p>Misschien loop je al hard. Train je in de sportschool. Fiets je. Doe je een teamsport. Of merk je gewoon dat je toe bent aan training met meer structuur, afwisseling en uitdaging.</p>
+      <p>Bij CrossFit combineer je kracht, conditie en techniek. Je tilt, duwt, trekt, springt, rent, roeit en leert bewegingen waar je steeds beter in kunt worden.</p>
+      <p>En je hoeft CrossFit niet eerst te kunnen.</p>
+      <p>De coach legt de workout uit, leert je de bewegingen en kijkt tijdens de training mee. Gewicht, tempo of oefening worden aangepast wanneer dat nodig is.</p>
+      <p>Daardoor kan iemand die zijn eerste CrossFit-les doet naast iemand trainen die dit al jaren doet.</p>
+    </div>
+    <ul class="step-list">
+      <li>Niet met dezelfde uitvoering.</li>
+      <li class="last">Wel met hetzelfde doel: <strong>een training die voor jou echt uitdagend is.</strong></li>
+    </ul>
+    <div class="prose">
+      <p>En CrossFit groeit met je mee.</p>
+      <p>Eerst leer je een beweging. Daarna wil je hem beter uitvoeren. Zwaarder. Sneller. Technischer. Wat vandaag nog moeilijk is, kan over een paar maanden vanzelfsprekend zijn — en dan wacht de volgende uitdaging.</p>
+      <p>Je hoeft ondertussen zelf geen trainingsschema bij elkaar te zoeken.</p>
+      <p>Je komt binnen. De workout staat klaar. De coach legt hem uit.</p>
+      <p>Daarna ga je aan het werk.</p>
+    </div>
+    <p class="statement">Serieus trainen. Op het niveau waar jij nu bent.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/web/nl/registreren/lidmaatschap" target="_blank" rel="noopener">Probeer CrossFit twee weken gratis →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section band prog-detail" id="hyrox">
+  <div class="shell">
+    <div class="section-head">
+      <h2>NIET ZOMAAR FITTER.<br><span class="yel">ERGENS BETER IN WORDEN.</span></h2>
+      <span class="number">04 / HYROX</span>
+    </div>
+    <div class="prose">
+      <p>Sommige mensen sporten vooral om in beweging te blijven.</p>
+      <p>Andere mensen willen ergens naartoe trainen.</p>
+      <p>HYROX is voor die tweede groep.</p>
+      <p>Je combineert hardlopen met functionele oefeningen en werkt aan kracht, conditie, tempo en het vermogen om door te gaan wanneer je al moe bent.</p>
+      <p>Dat maakt de training concreet.</p>
+      <p>Je merkt niet alleen dat je fitter wordt. Je merkt dat je langer een tempo kunt vasthouden. Dat een oefening makkelijker gaat. Dat je sneller herstelt. Dat je meer werk kunt verzetten voordat je moet vertragen.</p>
+    </div>
+    <ul class="step-list">
+      <li>Misschien wil je uiteindelijk aan een HYROX-event deelnemen.</li>
+      <li>Misschien vind je het gewoon prettig om te trainen alsof je ergens voor traint.</li>
+      <li class="last">Allebei kan.</li>
+    </ul>
+    <div class="prose">
+      <p>Tijdens de lessen hoef je zelf geen schema te bouwen of te bedenken welke combinatie van kracht en conditie je vandaag zou moeten doen.</p>
+      <p>De training staat klaar en de coach begeleidt je door de sessie.</p>
+      <p>Je traint hard, maar niet blind.</p>
+      <p>Tempo, techniek en uitvoering doen ertoe.</p>
+      <p>En doordat je samen met anderen traint, is het een stuk moeilijker om halverwege te besluiten dat het vandaag eigenlijk wel genoeg is geweest.</p>
+    </div>
+    <p class="statement">Een duidelijk doel. Een stevige training. Steeds een beetje meer kunnen.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/web/nl/registreren/lidmaatschap" target="_blank" rel="noopener">Probeer HYROX twee weken gratis →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section prog-detail" id="powermama">
+  <div class="shell">
+    <div class="section-head">
+      <h2>STERK BLIJVEN TIJDENS<br><span class="yel">EN NA JE ZWANGERSCHAP.</span></h2>
+      <span class="number">04 / POWERMAMA</span>
+    </div>
+    <div class="prose">
+      <p>Zwanger zijn betekent niet dat je moet stoppen met bewegen.</p>
+      <p>Maar het betekent wel dat je lichaam verandert.</p>
+      <p>En dus moet je training mee veranderen.</p>
+      <p>Bij Powermama train je verantwoord tijdens je zwangerschap en in de periode daarna. De oefeningen worden afgestemd op wat jouw lichaam op dat moment nodig heeft en aankan.</p>
+      <p>Je werkt aan kracht, conditie, stabiliteit en vertrouwen in je eigen lichaam.</p>
+    </div>
+    <ul class="step-list">
+      <li>Niet door te doen alsof er niets veranderd is.</li>
+      <li class="last">En ook niet door negen maanden lang bijna niets meer te durven.</li>
+    </ul>
+    <div class="prose">
+      <p>De begeleiding helpt je om te blijven bewegen binnen grenzen die passen bij jouw fase van de zwangerschap of herstel.</p>
+      <p>Na de bevalling verschuift het doel.</p>
+      <p>Dan bouw je stap voor stap weer kracht en belastbaarheid op, zodat je steeds meer kunt terugkeren naar de activiteiten en sporten die belangrijk voor je zijn.</p>
+      <p>Iedere vrouw en iedere zwangerschap is anders.</p>
+      <p>Daarom draait Powermama niet om één standaardprogramma dat iedereen precies hetzelfde uitvoert.</p>
+    </div>
+    <p class="statement">Je blijft bewegen. Je blijft sterker worden. Maar op een manier die past bij jouw lichaam van vandaag.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://powermamabergenopzoom.nl/" target="_blank" rel="noopener">Bekijk Powermama Bergen op Zoom →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section band prog-detail" id="zilverfitness">
+  <div class="shell">
+    <div class="section-head">
+      <h2>55-PLUSSERS WORDEN STERKER<br><span class="yel">DOOR ZILVERFITNESS.</span></h2>
+      <span class="number">04 / ZILVERFITNESS</span>
+    </div>
+    <div class="prose">
+      <p>ZilverFitness is een trainingsprogramma speciaal voor 55-plussers.</p>
+      <p>We trainen bewegingen die in het dagelijks leven voortdurend terugkomen: opstaan, traplopen, hurken, dragen en tillen.</p>
+      <p>Tijdens de lessen werken we onder andere met kleinere gewichten en met het eigen lichaamsgewicht.</p>
+      <p>Daarmee train je niet alleen je spieren.</p>
+      <p>Je werkt ook aan sterkere botten, balans, conditie en coördinatie.</p>
+      <p>Het doel is heel praktisch: <strong>sterk genoeg blijven om je eigen leven te blijven leiden.</strong></p>
+      <p>Door te blijven trainen behoud je spiermassa, coördinatie en uithoudingsvermogen. Dat helpt je om zelfstandig en met vertrouwen te blijven bewegen.</p>
+      <p>Je voelt je fitter en kunt langer blijven doen wat je leuk vindt.</p>
+    </div>
+    <ul class="step-list">
+      <li>Fietsen.</li>
+      <li>Wandelen.</li>
+      <li>Tuinieren.</li>
+      <li>Op pad gaan.</li>
+      <li class="last">Spelen met de kleinkinderen.</li>
+    </ul>
+    <div class="prose">
+      <p>Je traint in een kleinere groep met mensen in ongeveer dezelfde levensfase.</p>
+      <p>Iedere les is anders en het hele lesuur staat onder gediplomeerde begeleiding. De coach kan daarbij rekening houden met individuele aandachtspunten.</p>
+      <p>En na afloop?</p>
+      <p>Dan staat de koffie klaar.</p>
+    </div>
+    <p class="statement">Blijf niet alleen langer leven. Blijf langer doen wat je graag doet.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://zilverfitness.nl/locaties/bergen-op-zoom.html" target="_blank" rel="noopener">Probeer ZilverFitness →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section prog-detail" id="circuittraining">
+  <div class="shell">
+    <div class="section-head">
+      <h2>NIET IEDEREEN WIL VAN TRAINEN<br><span class="yel">EEN STUDIE MAKEN.</span></h2>
+      <span class="number">04 / CIRCUITTRAINING</span>
+    </div>
+    <div class="prose">
+      <p>Misschien wil je fitter worden, sterker worden en lekker bewegen.</p>
+      <p>Maar hoef je niet per se allerlei technische lifts of ingewikkelde CrossFit-bewegingen te leren.</p>
+      <p>Dan is Circuittraining een heel eenvoudige manier om goed te trainen.</p>
+      <p>Tijdens de les werk je verschillende oefeningen achter elkaar af. Kracht en conditie wisselen elkaar af en de training blijft in beweging.</p>
+    </div>
+    <ul class="step-list">
+      <li>Je hoeft zelf geen schema te maken.</li>
+      <li>Je hoeft niet van apparaat naar apparaat te lopen en ondertussen te bedenken wat je eigenlijk nog zou moeten doen.</li>
+      <li class="last">De training staat klaar.</li>
+    </ul>
+    <div class="prose">
+      <p>De coach legt uit wat de bedoeling is en helpt je wanneer een oefening moet worden aangepast.</p>
+      <p>Daardoor kun je gemakkelijk instappen, ook als je een tijd niet hebt gesport.</p>
+      <p>Maar gemakkelijk instappen betekent niet dat de training gemakkelijk hoeft te blijven.</p>
+      <p>Naarmate je fitter wordt, kan het tempo omhoog, kan de weerstand toenemen en kun je steeds meer uit dezelfde training halen.</p>
+    </div>
+    <p class="statement">Geen ingewikkeld gedoe. Wel een uur waarin je echt hebt getraind.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/web/nl/registreren/lidmaatschap?r=8" target="_blank" rel="noopener">Probeer Circuittraining →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section band prog-detail" id="crossfit-kids">
+  <div class="shell">
+    <div class="section-head">
+      <h2>LAAT KINDEREN ONTDEKKEN<br><span class="yel">HOEVEEL HUN LICHAAM KAN.</span></h2>
+      <span class="number">04 / CROSSFIT KIDS</span>
+    </div>
+    <div class="prose">
+      <p>Kinderen hoeven niet te trainen als kleine volwassenen.</p>
+      <p>Ze moeten bewegen.</p>
+      <p>Rennen. Springen. Gooien. Tillen. Klimmen. Balanceren. Samenwerken.</p>
+      <p>En vooral ontdekken dat bewegen leuk is.</p>
+      <p>Bij CrossFit Kids leren kinderen op een speelse manier beter bewegen. Ze bouwen kracht, conditie, coördinatie en lichaamscontrole op zonder dat alles draait om winnen of de beste zijn.</p>
+      <p>De oefeningen worden aangepast aan leeftijd en niveau en staan onder begeleiding van een coach.</p>
+    </div>
+    <ul class="step-list">
+      <li>Het ene kind is snel.</li>
+      <li>Het andere sterk.</li>
+      <li class="last">Een derde moet eerst wat meer vertrouwen krijgen.</li>
+    </ul>
+    <div class="prose">
+      <p>Dat is allemaal prima.</p>
+      <p>Het doel is niet dat ieder kind hetzelfde kan.</p>
+      <p>Het doel is dat ieder kind steeds iets meer ontdekt van wat het zelf kan.</p>
+      <p>Daarbij leren kinderen ook samenwerken, luisteren, proberen, opnieuw proberen en trots zijn wanneer iets eindelijk lukt.</p>
+    </div>
+    <p class="statement">Niet trainen voor een spiegel. Leren vertrouwen op je eigen lichaam.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="https://crossfitbergenopzoom.sportbitapp.nl/web/nl/registreren/lidmaatschap?r=8" target="_blank" rel="noopener">Probeer CrossFit Kids →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section prog-detail" id="private-coaching">
+  <div class="shell">
+    <div class="section-head">
+      <h2>SOMS HEB JE GEEN ANDERE TRAINING NODIG.<br><span class="yel">JE HEBT MEER AANDACHT NODIG.</span></h2>
+      <span class="number">04 / PRIVATE COACHING</span>
+    </div>
+    <div class="prose">
+      <p>Je kunt in een groepsles ontzettend ver komen.</p>
+      <p>Maar soms is er één ding waaraan je gericht wilt werken.</p>
+    </div>
+    <ul class="step-list">
+      <li>Een lift waarvan de techniek maar niet goed voelt.</li>
+      <li>Een beweging die je eindelijk onder de knie wilt krijgen.</li>
+      <li>Een specifiek kracht- of conditiedoel.</li>
+      <li class="last">Of simpelweg de behoefte aan een training die volledig om jou draait.</li>
+    </ul>
+    <div class="prose">
+      <p>Daar is Private Coaching voor.</p>
+      <p>Je traint één-op-één met een coach of samen met z&rsquo;n tweeën.</p>
+      <p>Geen algemene workout die vervolgens voor jou wordt aangepast.</p>
+      <p>De training begint bij jouw doel.</p>
+      <p>De coach kan veel preciezer kijken naar je techniek, direct bijsturen en oefeningen kiezen die passen bij datgene waarin jij vooruit wilt.</p>
+      <p>Dat maakt Private Coaching ook geschikt als je al serieus traint.</p>
+      <p>Juist wanneer je verder komt, zitten verbeteringen vaak niet meer in simpelweg harder werken.</p>
+      <p>Dan gaat het om beter bewegen. Gerichter trainen. Details zien die je zelf niet ziet.</p>
+    </div>
+    <p class="statement">Minder algemeen. Meer gericht. Alle aandacht voor wat jij wilt verbeteren.</p>
+    <div class="sect-cta">
+      <a class="btn-primary" href="#private">Bekijk Private Coaching →</a>
+    </div>
+  </div>
+</section>
 <!-- 05 — THE COACHING -->
 <section class="section band" id="coaching">
   <div class="shell">
@@ -1361,7 +1589,7 @@ body::after {
           <li><a href="#programma-powermama">Powermama</a></li>
           <li><a href="#programma-zilverfitness">ZilverFitness</a></li>
           <li><a href="#programma-circuit">Circuit</a></li>
-          <li><a href="#programma-kids">Kids</a></li>
+          <li><a href="#programma-kids">CrossFit Kids</a></li>
           <li><a href="#programma-private">Private</a></li>
         </ul>
       </div>
