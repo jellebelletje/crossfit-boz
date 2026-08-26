@@ -16,3 +16,6 @@ RewriteRule "^binnenkort-beschikbaar/?$" "/#rooster" [R=301,L,NE]
 RewriteRule "^category/uncategorized/?$" "/" [R=301,L,NE]
 RewriteRule "^feed/?$" "/" [R=301,L,NE]
 RewriteRule "^comments/feed/?$" "/" [R=301,L,NE]
+
+# losse post-feeds
+RewriteRule "^.+/feed/?$" "/" [R=301,L,NE]
