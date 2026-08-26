@@ -221,6 +221,25 @@ body::after {
 .faq-a { padding-top: 1rem; color: var(--text-read); font-size: 0.95rem; line-height: 1.6; max-width: 680px; display: none; }
 .faq-item.open .faq-a { display: block; }
 
+/* LEDENVERHALEN: four across, portraits deliberately small and desaturated so the
+   quote carries the section rather than the face. */
+.verhaal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
+.verhaal { margin: 0; display: flex; flex-direction: column; }
+.verhaal-foto { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--bg-2); border: 1px solid var(--line-bright); margin-bottom: 1.1rem; flex-shrink: 0; }
+.verhaal-foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(0.92) brightness(0.95); }
+/* graceful stand-in until the portraits are dropped in */
+.verhaal-foto.geen-foto { display: flex; align-items: center; justify-content: center; border-style: dashed; }
+.verhaal-foto.geen-foto::after { content: attr(data-initiaal); font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; color: var(--text-low); }
+.verhaal-naam { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; text-transform: uppercase; line-height: 1; margin-bottom: 0.35rem; }
+.verhaal-meta { font-family: var(--font-signal); font-size: 0.56rem; letter-spacing: 0.14em; color: var(--yellow); text-transform: uppercase; padding-bottom: 0.9rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--line); }
+.verhaal blockquote { margin: 0; }
+.verhaal blockquote p { font-size: 0.92rem; line-height: 1.6; color: var(--text-read); margin-bottom: 0.7rem; }
+.verhaal blockquote p:first-child::before { content: "\201C"; color: var(--yellow); }
+.verhaal blockquote p:last-child { margin-bottom: 0; }
+.verhaal blockquote p:last-child::after { content: "\201D"; color: var(--yellow); }
+@media (max-width: 900px) { .verhaal-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .verhaal-grid { grid-template-columns: 1fr; } .verhaal-foto { width: 56px; height: 56px; } }
+
 /* DROP-IN BAND — outline only, deliberately below the primary CTA in weight */
 .dropin-band { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; border: 1px solid var(--line-bright); padding: clamp(1.5rem, 3vw, 2.5rem); }
 .dropin-band h3 { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.4rem, 2.6vw, 2rem); text-transform: uppercase; line-height: 1; }
@@ -1169,6 +1188,53 @@ body::after {
   </div>
 </section>
 
+<!-- 06B: IN HUN EIGEN WOORDEN -->
+<section class="section band" id="verhalen">
+  <div class="shell">
+    <div class="section-head">
+      <h2>IN HUN <span class="yel">EIGEN WOORDEN.</span></h2>
+      <span class="number">06B / LEDEN</span>
+    </div>
+    <div class="verhaal-grid">
+      <figure class="verhaal">
+        <div class="verhaal-foto"><img src="assets/lid-cihan.jpg" alt="Çihan, lid van CrossFit Bergen op Zoom" loading="lazy" onerror="this.parentNode.classList.add('geen-foto');this.parentNode.dataset.initiaal='Ç';this.remove();"></div>
+        <div class="verhaal-naam">Çihan</div>
+        <div class="verhaal-meta">CrossFit &middot; 33 jaar</div>
+        <blockquote>
+          <p>Ik ben nu ongeveer twee jaar lid bij CrossFit Bergen op Zoom. Sindsdien ben ik veel fitter geworden, met goede begeleiding en trainingen die echt bij me passen. Ik voel me beter op mijn werk en thuis, en hier kan ik lekker stoom afblazen.</p>
+          <p>De leuke community, fijne mensen en goede coaches maken dat het elke keer weer een feestje is om hier naartoe te komen.</p>
+        </blockquote>
+      </figure>
+      <figure class="verhaal">
+        <div class="verhaal-foto"><img src="assets/lid-joyce.jpg" alt="Joyce, lid van CrossFit Bergen op Zoom" loading="lazy" onerror="this.parentNode.classList.add('geen-foto');this.parentNode.dataset.initiaal='J';this.remove();"></div>
+        <div class="verhaal-naam">Joyce</div>
+        <div class="verhaal-meta">ZilverFitness &middot; 68 jaar</div>
+        <blockquote>
+          <p>Sinds oktober doe ik ZilverFitness en ik merk echt verschil. Ik word steeds sterker, mijn conditie is enorm vooruitgegaan en ik ben inmiddels acht kilo afgevallen.</p>
+          <p>Ik kijk iedere keer uit naar de training. Ik vind het echt super. Eigenlijk zou iedere oudere dit moeten doen. In één woord: fantastisch!</p>
+        </blockquote>
+      </figure>
+      <figure class="verhaal">
+        <div class="verhaal-foto"><img src="assets/lid-mike.jpg" alt="Mike, lid van CrossFit Bergen op Zoom" loading="lazy" onerror="this.parentNode.classList.add('geen-foto');this.parentNode.dataset.initiaal='M';this.remove();"></div>
+        <div class="verhaal-naam">Mike</div>
+        <div class="verhaal-meta">ZilverFitness &middot; 72 jaar</div>
+        <blockquote>
+          <p>Ik ben sinds oktober begonnen met Zilverfit en voel me echt een stuk beter. Ik word binnenkort 73 en voel me hartstikke fit.</p>
+          <p>Normaal train ik twee keer per week, naast het tennissen dat ik nog steeds doe. Ik merk gewoon dat ik steeds fitter word, en dat is precies waarom ik blijf komen.</p>
+        </blockquote>
+      </figure>
+      <figure class="verhaal">
+        <div class="verhaal-foto"><img src="assets/lid-jelmar.jpg" alt="Jelmar, lid van CrossFit Bergen op Zoom" loading="lazy" onerror="this.parentNode.classList.add('geen-foto');this.parentNode.dataset.initiaal='J';this.remove();"></div>
+        <div class="verhaal-naam">Jelmar</div>
+        <div class="verhaal-meta">CrossFit &middot; 52 jaar</div>
+        <blockquote>
+          <p>CrossFit vond ik altijd erg intimiderend. Maar toen iemand in mijn omgeving ziek werd, dacht ik: het is nu of nooit.</p>
+          <p>Ik heb de sprong gewaagd en inmiddels doe ik dit al vier jaar met veel plezier. Het is uitdagend, maar ik voel me gezonder en fitter dan pakweg twintig jaar geleden.</p>
+        </blockquote>
+      </figure>
+    </div>
+  </div>
+</section>
 <!-- PRIMARY CTA -->
 <section class="section">
   <div class="shell">

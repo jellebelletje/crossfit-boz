@@ -1,0 +1,18 @@
+# 301-redirects van de oude WordPress-pagina's naar de nieuwe one-pager.
+RewriteEngine On
+
+RewriteRule "^wat-is-crossfit/?$" "/#crossfit" [R=301,L,NE]
+RewriteRule "^de-crossfit-methode/?$" "/#community" [R=301,L,NE]
+RewriteRule "^is-crossfit-iets-voor-mij/?$" "/#faq" [R=301,L,NE]
+RewriteRule "^lessen/?$" "/#programmas" [R=301,L,NE]
+RewriteRule "^lessen/kids-training/?$" "/#crossfit-kids" [R=301,L,NE]
+RewriteRule "^lessen/personal-training/?$" "/#private-coaching" [R=301,L,NE]
+RewriteRule "^lessen/90-days-challenge/?$" "/#tarieven" [R=301,L,NE]
+RewriteRule "^fitness/?$" "/#circuittraining" [R=301,L,NE]
+RewriteRule "^trainers/?$" "/#founder" [R=301,L,NE]
+RewriteRule "^tarieven/?$" "/#tarieven" [R=301,L,NE]
+RewriteRule "^contact/?$" "/#contact" [R=301,L,NE]
+RewriteRule "^binnenkort-beschikbaar/?$" "/#rooster" [R=301,L,NE]
+RewriteRule "^category/uncategorized/?$" "/" [R=301,L,NE]
+RewriteRule "^feed/?$" "/" [R=301,L,NE]
+RewriteRule "^comments/feed/?$" "/" [R=301,L,NE]
