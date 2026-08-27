@@ -98,9 +98,23 @@ jobs:
           sleep 5
           fail=0
 
-          code=$(curl -s -o /dev/null -w '%{http_code}' https://crossfitbergenopzoom.nl/)
+          # SiteGround geeft bots een 202 in plaats van 200, dus een user-agent
+          # meesturen en niet alleen op de status afgaan: een 200 zegt niets over
+          # WELKE pagina er staat. De eerste deploy gaf keurig een 200 terwijl de
+          # oude WordPress-homepage nog uit de dynamische cache kwam.
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
+          code=$(curl -s -A "$UA" -o /tmp/home.html -w '%{http_code}' https://crossfitbergenopzoom.nl/)
           echo "homepage            : $code"
-          [ "$code" = "200" ] || fail=1
+          case "$code" in 200|202) : ;; *) fail=1 ;; esac
+
+          if grep -q 'Community First Fitness' /tmp/home.html && ! grep -q 'wp-content' /tmp/home.html; then
+            echo "inhoud              : nieuwe site"
+          else
+            echo "inhoud              : NIET de nieuwe site. Waarschijnlijk serveert" >&2
+            echo "                      SiteGround nog uit de dynamische cache." >&2
+            echo "                      Site Tools > Speed > Caching > Flush." >&2
+            fail=1
+          fi
 
           # de oude pagina's moeten een echte 301 geven, mét het anker
           for p in /wat-is-crossfit/ /lessen/ /tarieven/ /contact/ /binnenkort-beschikbaar/; do
