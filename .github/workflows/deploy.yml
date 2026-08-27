@@ -46,6 +46,8 @@ jobs:
 
       - name: Documentroot bepalen
         id: docroot
+        env:
+          SITE_DOMAIN: crossfitbergenopzoom.nl
         run: |
           SSH="ssh -p 18765 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes ${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}"
           PATH_SET="${{ secrets.SG_PATH }}"
@@ -53,16 +55,15 @@ jobs:
             echo "SG_PATH is opgegeven: $PATH_SET"
             DOC="$PATH_SET"
           else
-            # SG_PATH niet ingesteld: zelf zoeken. Op Site Tools-accounts staat de
-            # site onder ~/www/<domein>/public_html.
+            # SG_PATH niet ingesteld: zelf zoeken, maar op naam en niet op volgorde.
+            # Er staan twee sites op dit account, crossfit-bergenopzoom.nl en
+            # crossfitbergenopzoom.nl. Een "ls | head -1" pakt de eerste, en dat is
+            # door het koppelteken juist de verkeerde.
             echo "SG_PATH leeg, documentroot opzoeken op de server..."
-            DOC=$($SSH 'ls -d ~/www/*/public_html 2>/dev/null | head -1')
+            DOC=$($SSH "ls -d ~/www/$SITE_DOMAIN/public_html 2>/dev/null")
             if [ -z "$DOC" ]; then
-              DOC=$($SSH 'ls -d ~/public_html 2>/dev/null | head -1')
-            fi
-            if [ -z "$DOC" ]; then
-              echo "Kon geen public_html vinden. Dit staat er in de home-map:" >&2
-              $SSH 'ls -la ~' >&2
+              echo "Geen public_html voor $SITE_DOMAIN. Dit staat er wel:" >&2
+              $SSH 'ls -d ~/www/*/public_html' >&2
               exit 1
             fi
             echo "Gevonden: $DOC"
@@ -75,6 +76,10 @@ jobs:
           case "$DOC" in
             */public_html) : ;;
             *) echo "GEWEIGERD: '$DOC' eindigt niet op public_html." >&2; exit 1 ;;
+          esac
+          case "$DOC" in
+            *"/$SITE_DOMAIN/"*) : ;;
+            *) echo "GEWEIGERD: '$DOC' hoort niet bij $SITE_DOMAIN." >&2; exit 1 ;;
           esac
           echo "Bestemming: $DOC"
           echo "docroot=$DOC" >> "$GITHUB_OUTPUT"
