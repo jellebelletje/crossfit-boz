@@ -95,40 +95,49 @@ jobs:
             -e "ssh -p 18765 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
             _site/ "${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}:${{ steps.docroot.outputs.docroot }}/"
 
-      - name: Controleer de live site
+      - name: Controleer de deploy
+        env:
+          SITE_DOMAIN: crossfitbergenopzoom.nl
         run: |
-          sleep 5
+          # Bewust via SSH en niet via HTTP. SiteGround beantwoordt verzoeken uit
+          # datacenters met een 202 bot-check, ook mét browser-user-agent, dus een
+          # HTTP-controle vanaf een runner zegt niets. Op de server zelf kijken is
+          # bovendien immuun voor de dynamische cache: het toont wat er echt staat.
+          SSH="ssh -p 18765 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes ${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}"
+          DOC="${{ steps.docroot.outputs.docroot }}"
           fail=0
 
-          # SiteGround geeft bots een 202 in plaats van 200, dus een user-agent
-          # meesturen en niet alleen op de status afgaan: een 200 zegt niets over
-          # WELKE pagina er staat. De eerste deploy gaf keurig een 200 terwijl de
-          # oude WordPress-homepage nog uit de dynamische cache kwam.
-          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
-          code=$(curl -s -A "$UA" -o /tmp/home.html -w '%{http_code}' https://crossfitbergenopzoom.nl/)
-          echo "homepage            : $code"
-          case "$code" in 200|202) : ;; *) fail=1 ;; esac
-
-          if grep -q 'Community First Fitness' /tmp/home.html && ! grep -q 'wp-content' /tmp/home.html; then
-            echo "inhoud              : nieuwe site"
+          LOCAL=$(sha256sum _site/index.html | cut -d' ' -f1)
+          REMOTE=$($SSH "sha256sum '$DOC/index.html' 2>/dev/null | cut -d' ' -f1")
+          echo "index.html lokaal : $LOCAL"
+          echo "index.html server : $REMOTE"
+          if [ "$LOCAL" = "$REMOTE" ] && [ -n "$REMOTE" ]; then
+            echo "  -> identiek"
           else
-            echo "inhoud              : NIET de nieuwe site. Waarschijnlijk serveert" >&2
-            echo "                      SiteGround nog uit de dynamische cache." >&2
-            echo "                      Site Tools > Speed > Caching > Flush." >&2
-            fail=1
+            echo "  -> WIJKT AF of ontbreekt" >&2; fail=1
           fi
 
-          # de oude pagina's moeten een echte 301 geven, mét het anker
-          for p in /wat-is-crossfit/ /lessen/ /tarieven/ /contact/ /binnenkort-beschikbaar/; do
-            line=$(curl -sI "https://crossfitbergenopzoom.nl$p" | tr -d '\r')
-            status=$(printf '%s' "$line" | head -1 | awk '{print $2}')
-            loc=$(printf '%s' "$line" | grep -i '^location:' | head -1)
-            echo "$p -> $status $loc"
-            [ "$status" = "301" ] || fail=1
+          echo "--- moet aanwezig zijn ---"
+          for f in .htaccess 404.html robots.txt sitemap.xml favicon.ico; do
+            if $SSH "test -f '$DOC/$f'"; then echo "  ok      $f"; else echo "  ONTBREEKT $f" >&2; fail=1; fi
           done
 
-          # WordPress hoort weg te zijn
-          wp=$(curl -s -o /dev/null -w '%{http_code}' https://crossfitbergenopzoom.nl/wp-login.php)
-          echo "wp-login.php        : $wp (404 verwacht)"
+          echo "--- mag er niet staan ---"
+          for f in wp-login.php wp-config.php wp-admin readme.html HANDOVER.md; do
+            if $SSH "test -e '$DOC/$f'"; then echo "  AANWEZIG $f" >&2; fail=1; else echo "  weg     $f"; fi
+          done
+
+          echo "--- .well-known moet de rsync overleefd hebben ---"
+          if $SSH "test -d '$DOC/.well-known'"; then
+            echo "  ok      .well-known (SSL-verlenging)"
+          else
+            echo "  ONTBREEKT .well-known: SSL kan straks niet verlengen" >&2; fail=1
+          fi
+
+          # Informatief: een 202 hier is bot-bescherming, geen storing.
+          echo "--- extern (informatief) ---"
+          for p in / /tarieven/ /wat-is-crossfit/; do
+            echo "  $p -> $(curl -s -o /dev/null -w '%{http_code}' "https://$SITE_DOMAIN$p")"
+          done
 
           exit $fail

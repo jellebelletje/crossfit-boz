@@ -42,8 +42,13 @@ output, not by anything failing safely. Assume a fifth exists.
    so only committed files ship, with a 30 MB ceiling as a backstop.
 4. **A status-code check is not a deploy check.** The first real deploy put every file
    in place correctly while `/` still served the old WordPress homepage from
-   SiteGround's Dynamic Cache. The verification now asserts the new content is
-   actually in the response.
+   SiteGround's Dynamic Cache.
+5. **HTTP verification from CI does not work here.** SiteGround answers datacentre
+   clients with a **202** bot-check, browser user-agent or not, so a runner cannot see
+   the site at all. Verification is now done over SSH against the filesystem: it
+   compares the sha256 of `index.html`, asserts the expected files exist, asserts
+   WordPress and `*.md` do not, and checks `.well-known` survived. That is also immune
+   to the cache. The external curl is informational and never fails the run.
 
 **Never excluded from `--delete`:** `.well-known/` is Let's Encrypt's renewal path. If
 it is deleted, HTTPS keeps working and then silently fails to renew weeks later.
@@ -130,5 +135,7 @@ curl -sI -A "$UA" https://crossfitbergenopzoom.nl/tarieven/ | head -1      # exp
 curl -s -o /dev/null -w '%{http_code}\n' -A "$UA" https://crossfitbergenopzoom.nl/wp-login.php  # expect 404
 ```
 
-SiteGround answers datacentre clients with **202** rather than 200. Send a browser
-user-agent or you will misread a healthy site as broken.
+SiteGround answers datacentre clients with **202** rather than 200, and a browser
+user-agent is not always enough — the Actions runner gets 202 regardless. From a home
+connection the checks above work fine. In CI, verify over SSH against the filesystem
+instead; that is what the workflow does.
