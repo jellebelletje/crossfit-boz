@@ -26,7 +26,7 @@ jobs:
           mkdir -p _site
           git archive HEAD | tar -x -C _site
           cp redirects/.htaccess _site/.htaccess
-          rm -rf _site/redirects _site/.github _site/.gitignore
+          rm -rf _site/redirects _site/.github _site/.gitignore _site/tools
           echo "Te publiceren: $(find _site -type f | wc -l) bestanden, $(du -sh _site | cut -f1)"
           find _site -maxdepth 1 | sort
           # harde grens: een statische one-pager hoort nooit tientallen MB te zijn
