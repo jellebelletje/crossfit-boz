@@ -44,6 +44,41 @@ jobs:
           # host vooraf vastleggen, zodat StrictHostKeyChecking aan kan blijven
           ssh-keyscan -p 18765 "${{ secrets.SG_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
+      - name: Documentroot bepalen
+        id: docroot
+        run: |
+          SSH="ssh -p 18765 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes ${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}"
+          PATH_SET="${{ secrets.SG_PATH }}"
+          if [ -n "$PATH_SET" ]; then
+            echo "SG_PATH is opgegeven: $PATH_SET"
+            DOC="$PATH_SET"
+          else
+            # SG_PATH niet ingesteld: zelf zoeken. Op Site Tools-accounts staat de
+            # site onder ~/www/<domein>/public_html.
+            echo "SG_PATH leeg, documentroot opzoeken op de server..."
+            DOC=$($SSH 'ls -d ~/www/*/public_html 2>/dev/null | head -1')
+            if [ -z "$DOC" ]; then
+              DOC=$($SSH 'ls -d ~/public_html 2>/dev/null | head -1')
+            fi
+            if [ -z "$DOC" ]; then
+              echo "Kon geen public_html vinden. Dit staat er in de home-map:" >&2
+              $SSH 'ls -la ~' >&2
+              exit 1
+            fi
+            echo "Gevonden: $DOC"
+          fi
+          # Vangnet. rsync --delete naar een leeg of verkeerd pad is destructief:
+          # een lege SG_PATH maakte van de bestemming "user@host:/".
+          case "$DOC" in
+            ""|"/"|"~"|"$HOME") echo "GEWEIGERD: onveilige bestemming '$DOC'." >&2; exit 1 ;;
+          esac
+          case "$DOC" in
+            */public_html) : ;;
+            *) echo "GEWEIGERD: '$DOC' eindigt niet op public_html." >&2; exit 1 ;;
+          esac
+          echo "Bestemming: $DOC"
+          echo "docroot=$DOC" >> "$GITHUB_OUTPUT"
+
       - name: Rsync naar public_html
         run: |
           rsync -az --delete \
@@ -51,7 +86,7 @@ jobs:
             --exclude '.htpasswd' \
             --exclude 'cgi-bin/' \
             -e "ssh -p 18765 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
-            _site/ "${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}:${{ secrets.SG_PATH }}/"
+            _site/ "${{ secrets.SG_USER }}@${{ secrets.SG_HOST }}:${{ steps.docroot.outputs.docroot }}/"
 
       - name: Controleer de live site
         run: |
