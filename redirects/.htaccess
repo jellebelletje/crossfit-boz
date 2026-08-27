@@ -1,4 +1,27 @@
-# 301-redirects van de oude WordPress-pagina's naar de nieuwe one-pager.
+# Compressie, caching en 301-redirects voor crossfitbergenopzoom.nl.
+# SiteGround draait Apache achter nginx, dus .htaccess werkt hier gewoon.
+
+# --- compressie ---------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- caching ------------------------------------------------------------
+# Foto's en iconen veranderen alleen onder een nieuwe bestandsnaam, dus die
+# mogen lang blijven staan. De pagina zelf niet: die moet een deploy meteen
+# laten zien.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|webp|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=600, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# --- 301-redirects ------------------------------------------------------
 RewriteEngine On
 
 RewriteRule "^wat-is-crossfit/?$" "/#crossfit" [R=301,L,NE]
